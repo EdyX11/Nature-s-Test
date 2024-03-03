@@ -37,7 +37,7 @@ public class SelectionManager : MonoBehaviour
         {
             var selectionTransform = hit.transform;
             var interactableObject = selectionTransform.GetComponent<InteractableObject>();
-            if (interactableObject != null)
+            if (interactableObject != null && selectionTransform.GetComponent<InteractableObject>().playerInRange)
             {
                 interaction_text.text = interactableObject.GetItemName();
                 interaction_Info_UI.SetActive(true);
