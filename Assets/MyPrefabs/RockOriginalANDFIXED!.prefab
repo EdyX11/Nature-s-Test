@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8735868657970421606
+--- !u!1 &5116649387327551871
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5494909829915266342}
-  - component: {fileID: 2094642093119976841}
-  - component: {fileID: 128071396595757730}
-  - component: {fileID: 2536797102090856724}
-  - component: {fileID: 3520507694201518518}
-  - component: {fileID: -6721455883287687744}
+  - component: {fileID: 1752378139611829364}
+  - component: {fileID: 7177631065291564897}
+  - component: {fileID: 4815011632644881675}
+  - component: {fileID: 2467848571845151802}
+  - component: {fileID: 4366201292522696141}
+  - component: {fileID: 2067984268159484876}
   m_Layer: 0
-  m_Name: Rock 02 prefab
+  m_Name: RockOriginalANDFIXED!
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5494909829915266342
+--- !u!4 &1752378139611829364
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8735868657970421606}
+  m_GameObject: {fileID: 5116649387327551871}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 41.249, y: 0.175, z: 29.647}
-  m_LocalScale: {x: 0.009355349, y: 0.009355349, z: 0.009355349}
+  m_LocalPosition: {x: 40.815697, y: 0.212, z: 29.811592}
+  m_LocalScale: {x: 0.009686528, y: 0.009686528, z: 0.009686528}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2094642093119976841
+--- !u!33 &7177631065291564897
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8735868657970421606}
+  m_GameObject: {fileID: 5116649387327551871}
   m_Mesh: {fileID: 4300002, guid: db72b16ba1901ab4eacf5734b76354fe, type: 3}
---- !u!23 &128071396595757730
+--- !u!23 &4815011632644881675
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8735868657970421606}
+  m_GameObject: {fileID: 5116649387327551871}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -86,13 +86,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2536797102090856724
+--- !u!64 &2467848571845151802
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8735868657970421606}
+  m_GameObject: {fileID: 5116649387327551871}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -108,13 +108,13 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300004, guid: db72b16ba1901ab4eacf5734b76354fe, type: 3}
---- !u!114 &3520507694201518518
+--- !u!114 &4366201292522696141
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8735868657970421606}
+  m_GameObject: {fileID: 5116649387327551871}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64757bfcd0f43a049b2aed26a61d3a17, type: 3}
@@ -122,13 +122,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInRange: 0
   ItemName: Stone
---- !u!65 &-6721455883287687744
+--- !u!65 &2067984268159484876
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8735868657970421606}
+  m_GameObject: {fileID: 5116649387327551871}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -141,5 +141,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 67.86078, y: 38.27035, z: 70.21307}
-  m_Center: {x: 4.3665867, y: -2.390625, z: 0.67998695}
+  m_Size: {x: 400, y: 68.53807, z: 400}
+  m_Center: {x: 4.366593, y: 13.34018, z: 0.6799837}

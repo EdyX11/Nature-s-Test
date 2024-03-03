@@ -7,6 +7,12 @@ using TMPro;
 
 public class SelectionManager : MonoBehaviour
 {
+
+    //singleton design pattern used to be more efficient
+    public static SelectionManager Instance { get; set; }
+    public bool onTarget;
+
+
     public GameObject interaction_Info_UI;
     public Camera cameraToUse; // Assigned this in the inspector
 
@@ -19,11 +25,24 @@ public class SelectionManager : MonoBehaviour
             Debug.LogError("Main camera not found");
             return;
         }
-
+        onTarget = false;
         interaction_text = interaction_Info_UI.GetComponent<TextMeshProUGUI>();
         if (interaction_text == null)
         {
             Debug.LogError("TextMeshProUGUI component not found on interaction_Info_UI");
+        }
+    }
+
+    private void Awake()
+    {
+
+        if(Instance != null&& Instance != this) {
+            Destroy(gameObject);
+            }
+
+        else
+        {
+            Instance = this;
         }
     }
 
@@ -37,13 +56,17 @@ public class SelectionManager : MonoBehaviour
         {
             var selectionTransform = hit.transform;
             var interactableObject = selectionTransform.GetComponent<InteractableObject>();
-            if (interactableObject != null && selectionTransform.GetComponent<InteractableObject>().playerInRange)
+
+            if (interactableObject != null && interactableObject.playerInRange)
             {
+
+                onTarget = true;
                 interaction_text.text = interactableObject.GetItemName();
                 interaction_Info_UI.SetActive(true);
             }
             else
-            {
+            {   
+                onTarget = false;
                 interaction_Info_UI.SetActive(false);
             }
         }
