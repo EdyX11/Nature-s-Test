@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4366201292522696141}
   - component: {fileID: 2067984268159484876}
   m_Layer: 0
-  m_Name: RockOriginalANDFIXED!
+  m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
