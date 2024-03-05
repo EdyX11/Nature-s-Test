@@ -13,6 +13,9 @@ public class SelectionManager : MonoBehaviour
     public bool onTarget;
 
 
+    public GameObject selectedObject;
+
+
     public GameObject interaction_Info_UI;
     public Camera cameraToUse; // Assigned this in the inspector
 
@@ -55,13 +58,15 @@ public class SelectionManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             var selectionTransform = hit.transform;
-            var interactableObject = selectionTransform.GetComponent<InteractableObject>();
+            InteractableObject interactable = selectionTransform.GetComponent<InteractableObject>();
 
-            if (interactableObject != null && interactableObject.playerInRange)
+            if (interactable  && interactable.playerInRange)
             {
 
                 onTarget = true;
-                interaction_text.text = interactableObject.GetItemName();
+                selectedObject = interactable.gameObject;
+
+                interaction_text.text = interactable.GetItemName();
                 interaction_Info_UI.SetActive(true);
             }
             else
