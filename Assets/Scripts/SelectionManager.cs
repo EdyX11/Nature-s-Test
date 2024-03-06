@@ -21,13 +21,20 @@ public class SelectionManager : MonoBehaviour
 
     TextMeshProUGUI interaction_text;
 
+    public Image centerDotImage;
+    public Image handIcon;
+
     private void Start()
     {
+        //camera check for missing
         if (cameraToUse == null)
         {
             Debug.LogError("Main camera not found");
             return;
         }
+
+
+
         onTarget = false;
         interaction_text = interaction_Info_UI.GetComponent<TextMeshProUGUI>();
         if (interaction_text == null)
@@ -68,12 +75,35 @@ public class SelectionManager : MonoBehaviour
 
                 interaction_text.text = interactable.GetItemName();
                 interaction_Info_UI.SetActive(true);
+
+                //if to change hand to dot
+                if (interactable.CompareTag("pickable"))
+                {
+                    centerDotImage.gameObject.SetActive(false);
+                    handIcon.gameObject.SetActive(true);   
+
+
+                }
+                else
+                {
+                    handIcon.gameObject.SetActive(false);
+                    centerDotImage.gameObject.SetActive(true);
+                }
             }
-            else
+            else//if there is a hit but no interactable script
             {   
                 onTarget = false;
                 interaction_Info_UI.SetActive(false);
+                handIcon.gameObject.SetActive(false);
+                centerDotImage.gameObject.SetActive(true);
             }
+        }
+        else // if the is no hit at all 
+        {
+            onTarget = false;
+            interaction_Info_UI.SetActive(false);
+            handIcon.gameObject.SetActive(false);
+            centerDotImage.gameObject.SetActive(true);
         }
     }
 }
