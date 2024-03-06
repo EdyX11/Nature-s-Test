@@ -141,12 +141,44 @@ public class InventorySystem : MonoBehaviour
 
     }
 
-   public void  RemoveItem()
+   public void  RemoveItem(string nameToRemove, int amountToRemove)
     {
+        int counter = amountToRemove;
+        for (var i = slotList.Count - 1; i >= 0; i--)//parse the list from end to start, backwards
+        {
+            if (slotList[i].transform.childCount > 0 ) // from index 20, if slot has child
+            {
+                if (slotList[i].transform.GetChild(0).name == nameToRemove + "(Clone)" && counter != 0 )
+                  {
+                    Destroy(slotList[i].transform.GetChild(0).gameObject);
 
+                    counter -= 1;
+                  } 
+            }
+        }
+    }
+    // getting the updated list 
+    public void ReCalculateList()
+    {
+        itemList.Clear();
 
+        foreach(GameObject slot in slotList)
+        {
+            if (slot.transform.childCount > 0)// slot not empty 
+            {
 
+                string name = slot.transform.GetChild(0).name; //Stone (Clone) 
 
+                string str2 = "(Clone)";
+                //in order to remove string (Clone) which is generated when picking up an item
+
+                string result = name.Replace(str2,"");
+                Debug.Log("name changed to original,printiing result to be added");
+                Debug.Log(result);
+                itemList.Add(result);  // add the name to the new list 
+
+            }
+        }
     }
 
 
