@@ -121,11 +121,18 @@ public class InventorySystem : MonoBehaviour
     void TriggerPickupPopUp(string itemName, Sprite itemSprite)
     {
         pickupAlert.SetActive(true);    
-        pickupName.text= ("Picked up: " +itemName);
-        pickupImage.sprite = itemSprite; 
-
+        pickupName.text= ("Picked up: " + itemName);
+        pickupImage.sprite = itemSprite;
+        StartCoroutine(HidePickupAlertAfterDelay(2f));
     }
+    private IEnumerator HidePickupAlertAfterDelay(float delay)
+    {
 
+        yield return new WaitForSeconds(delay);
+
+
+        pickupAlert.SetActive(false);
+    }
 
 
 
