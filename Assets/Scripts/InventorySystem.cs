@@ -97,6 +97,9 @@ public class InventorySystem : MonoBehaviour
             itemToAdd.transform.SetParent(whatSlotToEquip.transform);
 
             itemList.Add(itemName);
+
+        ReCalculateList();
+        CraftingSystem.Instance.RefreshNeededItems();
         
     }
     private GameObject FindNextEmptySlot()
@@ -156,6 +159,9 @@ public class InventorySystem : MonoBehaviour
                   } 
             }
         }
+
+        ReCalculateList();
+        CraftingSystem.Instance.RefreshNeededItems();
     }
     // getting the updated list 
     public void ReCalculateList()
