@@ -1,18 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    private Slider slider;
+
+    public Text healthCounter;
+
+    public GameObject playerState;
+
+
+    private float currentHealth, maxHealth;
+
+
+
+    void Awake()
     {
-        
+        slider = GetComponent<Slider>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        
+        currentHealth = playerState.GetComponent<PlayerState>().currentHealth;
+        maxHealth = playerState.GetComponent<PlayerState>().maxHealth;
+
+
+        float fillValue = currentHealth / maxHealth; // slider runs between 1 and 0 , 0 empty , 1 full 
+        slider.value = fillValue;
+
+        healthCounter.text = currentHealth + "/" + maxHealth; // eg 80/100
     }
 }
