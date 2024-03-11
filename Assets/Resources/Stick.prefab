@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4143607817602008875}
   - component: {fileID: 235017823654070922}
   - component: {fileID: 1662796784993937227}
+  - component: {fileID: -3144024196520366184}
   - component: {fileID: 2554705991342334062}
   m_Layer: 5
   m_Name: Stick
@@ -89,6 +90,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177be1aa460468f42afa60f3baba2770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-3144024196520366184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226837873226206846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5148d2ba48b0b084795e6cd160e0ac0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTrashable: 1
+  thisName: Stick
+  thisDescription: Leftover stick from an earthquake.
+  thisFunctionality: Used for crafting.
+  isConsumable: 0
+  healthEffect: 0
+  caloriesEffect: 0
+  hydrationEffect: 0
 --- !u!225 &2554705991342334062
 CanvasGroup:
   m_ObjectHideFlags: 0
