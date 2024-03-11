@@ -104,7 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrashable: 1
   thisName: Stone
-  thisDescription: May be a stone but it can be usefull.
+  thisDescription: Almost sharp stone.
   thisFunctionality: Used for crafting.
   isConsumable: 0
   healthEffect: 0

@@ -108,7 +108,7 @@ MonoBehaviour:
   thisFunctionality: Used for regaining stats.
   isConsumable: 1
   healthEffect: 30
-  caloriesEffect: 100
+  caloriesEffect: 200
   hydrationEffect: 5
 --- !u!225 &2134222353219906377
 CanvasGroup:

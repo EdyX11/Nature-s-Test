@@ -104,11 +104,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrashable: 1
   thisName: Apple
-  thisDescription: Delicious treat.
+  thisDescription: Small treat.
   thisFunctionality: Used for regaining stats.
   isConsumable: 1
-  healthEffect: 10
-  caloriesEffect: 100
+  healthEffect: 5
+  caloriesEffect: 50
   hydrationEffect: 10
 --- !u!225 &2134222353219906377
 CanvasGroup:
