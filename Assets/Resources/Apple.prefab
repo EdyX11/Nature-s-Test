@@ -110,6 +110,9 @@ MonoBehaviour:
   healthEffect: 5
   caloriesEffect: 50
   hydrationEffect: 10
+  isEquippable: 1
+  isInsideQuickSlot: 0
+  isSelected: 0
 --- !u!225 &2134222353219906377
 CanvasGroup:
   m_ObjectHideFlags: 0

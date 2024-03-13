@@ -34,6 +34,23 @@ public class ItemSlot : MonoBehaviour
             DragDrop.itemBeingDragged.transform.SetParent(transform);
             DragDrop.itemBeingDragged.transform.localPosition = new Vector2(0, 0);
 
+            if (transform.CompareTag("QuickSlot")== false ) 
+            {
+                Debug.Log("ItemNot in quickslot");
+                DragDrop.itemBeingDragged.GetComponent<InventoryItem>().isInsideQuickSlot = false;
+                InventorySystem.Instance.ReCalculateList();
+
+            }
+            if (transform.CompareTag("QuickSlot"))
+            {
+                Debug.Log("Item added to quick slot");
+
+                DragDrop.itemBeingDragged.GetComponent<InventoryItem>().isInsideQuickSlot = true;
+                InventorySystem.Instance.ReCalculateList();
+            }
+
+
+
         }
 
 
