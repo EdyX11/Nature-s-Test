@@ -20,8 +20,20 @@ public class EquipableItem : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if (Input.GetMouseButtonDown(0)) //left click
+    
+   
+    {  
+        
+        //left click
+        if (Input.GetMouseButtonDown(0)  && 
+            InventorySystem.Instance.isOpen == false && 
+            CraftingSystem.Instance.isOpen == false  &&
+            SelectionManager.Instance.handIsVisible == false
+            ) 
+            
+            
+            
+        
         {
             animator.SetTrigger("hit");
 

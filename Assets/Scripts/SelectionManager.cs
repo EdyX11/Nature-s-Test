@@ -23,6 +23,7 @@ public class SelectionManager : MonoBehaviour
 
     public Image centerDotImage;
     public Image handIcon;
+    public bool handIsVisible;
 
     private void Start()
     {
@@ -80,14 +81,15 @@ public class SelectionManager : MonoBehaviour
                 if (interactable.CompareTag("pickable"))
                 {
                     centerDotImage.gameObject.SetActive(false);
-                    handIcon.gameObject.SetActive(true);   
+                    handIcon.gameObject.SetActive(true);
 
-
+                    handIsVisible = true;
                 }
                 else
                 {
                     handIcon.gameObject.SetActive(false);
                     centerDotImage.gameObject.SetActive(true);
+                    handIsVisible = false;
                 }
             }
             else//if there is a hit but no interactable script
@@ -96,6 +98,8 @@ public class SelectionManager : MonoBehaviour
                 interaction_Info_UI.SetActive(false);
                 handIcon.gameObject.SetActive(false);
                 centerDotImage.gameObject.SetActive(true);
+
+                handIsVisible = false;  
             }
         }
         else // if the is no hit at all 
@@ -104,6 +108,8 @@ public class SelectionManager : MonoBehaviour
             interaction_Info_UI.SetActive(false);
             handIcon.gameObject.SetActive(false);
             centerDotImage.gameObject.SetActive(true);
+
+            handIsVisible = false;
         }
     }
 

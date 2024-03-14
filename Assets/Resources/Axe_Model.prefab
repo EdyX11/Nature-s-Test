@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 486550}
   - component: {fileID: 677256324233477776}
   - component: {fileID: 1848062804952190946}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Axe_Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5224149bebba6ee4f8c2d1f08aaea9b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!1 &197290
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,7 +79,7 @@ GameObject:
   - component: {fileID: 419954}
   - component: {fileID: 3377306}
   - component: {fileID: 2350686}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
