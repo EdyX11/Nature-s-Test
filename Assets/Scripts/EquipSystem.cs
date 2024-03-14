@@ -150,7 +150,7 @@ public class EquipSystem : MonoBehaviour
     private void SetEquippedModel(GameObject selectedItem)
     {
         string selectedItemName = selectedItem.name.Replace("(Clone)", "");
-        GameObject itemModel = Instantiate(Resources.Load<GameObject>(selectedItemName + "_Model"), new Vector3(0.7f, 0.1f, 1f), Quaternion.Euler(0f ,180f ,20f ));
+        GameObject itemModel = Instantiate(Resources.Load<GameObject>(selectedItemName + "_Model"), new Vector3(1.2f, -0.2f, 1.5f), Quaternion.Euler(0f,90f ,0f ));
         itemModel.transform.SetParent(toolHolder.transform, false);
     }
 
