@@ -19,7 +19,7 @@ public class EquipSystem : MonoBehaviour
     public GameObject selectedItem;
 
     public GameObject toolHolder;
-
+    public GameObject selectedItemModel;
 
     private void Awake()
     {
@@ -134,6 +134,13 @@ public class EquipSystem : MonoBehaviour
                     selectedItem.gameObject.GetComponent<InventoryItem>().isSelected = false;
                     selectedItem = null;
                 }
+
+                if(selectedItemModel != null)
+                {
+                    DestroyImmediate(selectedItemModel.gameObject);
+                    selectedItemModel = null;
+
+                }
                 //changing color (unselected)
                 foreach (Transform child in numbersHolder.transform)
                 {
@@ -149,9 +156,16 @@ public class EquipSystem : MonoBehaviour
 
     private void SetEquippedModel(GameObject selectedItem)
     {
+        if (selectedItemModel != null)
+        {
+            DestroyImmediate(selectedItemModel.gameObject);
+            selectedItemModel = null;
+
+        }
         string selectedItemName = selectedItem.name.Replace("(Clone)", "");
-        GameObject itemModel = Instantiate(Resources.Load<GameObject>(selectedItemName + "_Model"), new Vector3(1.2f, -0.2f, 1.5f), Quaternion.Euler(0f,90f ,0f ));
-        itemModel.transform.SetParent(toolHolder.transform, false);
+        selectedItemModel = Instantiate(Resources.Load<GameObject>(selectedItemName + "_Model"), 
+            new Vector3(1.2f, -0.2f, 1.5f), Quaternion.Euler(10f,90f ,0f ));
+        selectedItemModel.transform.SetParent(toolHolder.transform, false);
     }
 
 
