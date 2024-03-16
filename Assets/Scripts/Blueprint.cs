@@ -13,12 +13,14 @@ public class Blueprint
     public int Req2amount;
 
     public int numOfRequirements;
-
-    public Blueprint(string name, int reqNUM, string R1, int R1num, string R2, int R2num ) // constructor
+    public int numberOfItemsToProduce;
+    public Blueprint(string name, int producedItems, int reqNUM, string R1, int R1num, string R2, int R2num ) // constructor
     {
         itemName = name;
 
         numOfRequirements = reqNUM;
+        numberOfItemsToProduce = producedItems;
+
 
         Req1 = R1;
         Req2 = R2;

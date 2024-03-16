@@ -110,7 +110,7 @@ MonoBehaviour:
   healthEffect: 5
   caloriesEffect: 50
   hydrationEffect: 10
-  isEquippable: 1
+  isEquippable: 0
   isInsideQuickSlot: 0
   isSelected: 0
 --- !u!225 &2134222353219906377
