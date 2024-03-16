@@ -1,4 +1,4 @@
- using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -26,7 +26,7 @@ public class ItemSlot : MonoBehaviour
     public void OnDrop(PointerEventData eventData)
     {
         Debug.Log("OnDrop");
-
+       // SoundManager.Instance.PlaySound(SoundManager.Instance.dropItemSound);
         //if there is not item already then set our item.
         if (!Item)
         {

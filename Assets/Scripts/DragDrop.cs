@@ -71,6 +71,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         }
 
         Debug.Log("OnEndDrag");
+        SoundManager.Instance.PlaySound(SoundManager.Instance.dropItemSound);
     }
 
 

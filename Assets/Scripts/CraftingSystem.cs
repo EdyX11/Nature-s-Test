@@ -120,6 +120,9 @@ public class CraftingSystem : MonoBehaviour
         //add item into invetory
         //Debug.Log("Item added to invetory");
         //loop for how mmany items we need to produce according to blueprint
+
+        SoundManager.Instance.PlaySound(SoundManager.Instance.craftingSound);
+
         for (var i = 0; i < blueprintToCraft.numberOfItemsToProduce; i++)
         {
 

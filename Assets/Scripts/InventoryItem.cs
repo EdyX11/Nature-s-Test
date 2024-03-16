@@ -88,11 +88,11 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             }
             if (isEquippable && isInsideQuickSlot == false && EquipSystem.Instance.CheckIfFull() == false)
             {
-                Debug.Log("we are cheeking is item is quippable and if its not in quickslots already , also if the check for quickslot is full is false we add item to quick slot");
+               
                 //itemPendingEquipping = gameObject;
                 EquipSystem.Instance.AddToQuickSlots(gameObject);
                 isInsideQuickSlot = true;
-
+                Debug.Log("we are cheeking is item is quippable and if its not in quickslots already , also if the check for quickslot is full is false we add item to quick slot");
 
 
             }

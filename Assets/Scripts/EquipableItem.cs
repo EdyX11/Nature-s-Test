@@ -32,7 +32,7 @@ public class EquipableItem : MonoBehaviour
             )
 
         {
-
+            StartCoroutine(SwingSoundDelay());
             animator.SetTrigger("hit");
         }
     }
@@ -46,5 +46,12 @@ public class EquipableItem : MonoBehaviour
             }
 
         }
+
+    IEnumerator SwingSoundDelay()
+    {
+        yield return new WaitForSeconds(0.2f);
+        SoundManager.Instance.PlaySound(SoundManager.Instance.axeSwingSound);
+
+    }
     
 }
