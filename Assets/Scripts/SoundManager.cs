@@ -6,12 +6,17 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; set; }
 
+
+    //sound effectss
     public AudioSource dropItemSound;
-
     public AudioSource craftingSound;
-    public AudioSource axeSwingSound;
+    public AudioSource toolSwingSound;
+    public AudioSource axeHitTreeSound;
+    public AudioSource pickupItemSound;
+    //public AudioSource grassWalkSound;
 
-
+    //Music
+    //public AudioSource ... 
 
     private void Awake()
     {

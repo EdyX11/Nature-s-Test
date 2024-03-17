@@ -5,18 +5,20 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
-
-    public float speed = 12f;
-    public float gravity = -9.81f * 2;
-    public float jumpHeight = 3f;
+    
+   [SerializeField] private float speed = 12f;
+   [SerializeField] private float gravity = -9.81f * 2;
+   [SerializeField] private float jumpHeight = 3f;
 
     public Transform groundCheck;
-    public float groundDistance = 0.4f;
+   [SerializeField] private float groundDistance = 0.4f;
     public LayerMask groundMask; // detact layer when ground checking
 
     Vector3 velocity; // of the fall
 
     bool isGrounded;
+   // private Vector3 lastPosition = new Vector3(0f, 0f, 0f);
+
 
     // Update is called once per frame
     void Update()
@@ -48,5 +50,6 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+
     }
 }

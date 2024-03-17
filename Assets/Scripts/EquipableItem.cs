@@ -42,15 +42,17 @@ public class EquipableItem : MonoBehaviour
             GameObject selectedTree = SelectionManager.Instance.selectedTree;
             if (selectedTree != null)
             {
-                selectedTree.GetComponent<ChoppableTree>().GetHitTree();
-            }
+            SoundManager.Instance.PlaySound(SoundManager.Instance.axeHitTreeSound);// tree gets hit here
+            selectedTree.GetComponent<ChoppableTree>().GetHitTree();
+                
+        }
 
         }
 
     IEnumerator SwingSoundDelay()
     {
         yield return new WaitForSeconds(0.2f);
-        SoundManager.Instance.PlaySound(SoundManager.Instance.axeSwingSound);
+        SoundManager.Instance.PlaySound(SoundManager.Instance.toolSwingSound);
 
     }
     
