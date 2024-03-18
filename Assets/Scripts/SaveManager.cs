@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainMenuSaveManager : MonoBehaviour
+public class SaveManager : MonoBehaviour
 {
-    public static MainMenuSaveManager Instance { get; set; }
+    public static SaveManager Instance { get; set; }
 
     private void Awake()
     {
@@ -16,10 +16,16 @@ public class MainMenuSaveManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        DontDestroyOnLoad(gameObject);
     }
 
 
- 
+    #region || ------------SETTINGS SECTION--------- || 
+
+
+
+    #region || ------------Volume Settings --------- || 
     [System.Serializable]
     public class VolumeSettings
     {
@@ -40,6 +46,7 @@ public class MainMenuSaveManager : MonoBehaviour
         };
         PlayerPrefs.SetString("Volume", JsonUtility.ToJson(volumeSettings)); // converting the class into a json using  SetString, json saved as a string into player prefs
         PlayerPrefs.Save();
+        print("save to player prefs");
     }
    
     public VolumeSettings LoadVolumeSettings()
@@ -51,5 +58,27 @@ public class MainMenuSaveManager : MonoBehaviour
 
 
     }
+    #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    #endregion
+
+
+
 
 }
