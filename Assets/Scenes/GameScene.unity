@@ -5564,7 +5564,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1996901580}
-  m_Father: {fileID: 1353496717}
+  m_Father: {fileID: 1863150554}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &539235044
 AudioListener:
@@ -9395,7 +9395,6 @@ Transform:
   m_Children:
   - {fileID: 2053499176}
   - {fileID: 1636727042}
-  - {fileID: 539235043}
   - {fileID: 1863150554}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12112,7 +12111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1765218448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12726,6 +12725,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1778486620}
+  - {fileID: 539235043}
   m_Father: {fileID: 1353496717}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1878086810
