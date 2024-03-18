@@ -8,8 +8,8 @@ using UnityEngine;
 public class EquipableItem : MonoBehaviour
 {
 
-    public Animator animator;
-
+    private Animator animator;
+    private bool isHitting = false; 
 
 
     // Start is called before the first frame update
@@ -28,11 +28,13 @@ public class EquipableItem : MonoBehaviour
         if (Input.GetMouseButtonDown(0) &&
             InventorySystem.Instance.isOpen == false &&
             CraftingSystem.Instance.isOpen == false &&
-            SelectionManager.Instance.handIsVisible == false
+            SelectionManager.Instance.handIsVisible == false &&
+            !isHitting
+
             )
 
         {
-            StartCoroutine(SwingSoundDelay());
+            isHitting = true;
             animator.SetTrigger("hit");
         }
     }
@@ -49,11 +51,15 @@ public class EquipableItem : MonoBehaviour
 
         }
 
-    IEnumerator SwingSoundDelay()
-    {
-        yield return new WaitForSeconds(0.2f);
-        SoundManager.Instance.PlaySound(SoundManager.Instance.toolSwingSound);
-
-    }
     
+
+    public void PlayToolSwingSound()
+    {
+        SoundManager.Instance.PlaySound(SoundManager.Instance.toolSwingSound);
+    }
+    public void ResetHit()
+    {
+        isHitting = false;
+    }
+
 }
