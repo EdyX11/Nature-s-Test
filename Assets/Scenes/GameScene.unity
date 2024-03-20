@@ -9409,22 +9409,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canSprint: 1
+  canJump: 1
   sprintKey: 304
+  jumpKey: 32
   walkSpeed: 10
   sprintSpeed: 15
-  gravity: -19.62
-  jumpHeight: 3
+  gravity: 30
+  jumpHeight: 10
   lookSpeedX: 2
   lookSpeedY: 2
   upperLookLimit: 80
   lowerLookLimit: 80
-  rotationX: 0
   groundCheck: {fileID: 1636727042}
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  isGrounded: 0
-  groundDistance: 0.7
+  onGround: 0
+  groundDistance: 0.2
+  rotationX: 0
 --- !u!1001 &1359451647
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11523,7 +11525,7 @@ Transform:
   m_GameObject: {fileID: 1636727041}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.754, z: 0}
+  m_LocalPosition: {x: 0, y: -1.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -6,16 +6,16 @@ public class PlayerMovement : MonoBehaviour
 {
     public bool CanMove { get; private set; } = true;
     private bool IsSprinting => canSprint && Input.GetKey(sprintKey);
-
+    private bool ShouldJump => Input.GetKeyDown(jumpKey) && onGround;
 
     [Header("Functional Options")]
     [SerializeField] private bool canSprint = true;
-
+    [SerializeField] private bool canJump = true;
 
 
     [Header("Controls")]
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
-
+    [SerializeField] private KeyCode jumpKey = KeyCode.Space;
 
 
     [Header("Movement Parameters")]
@@ -23,9 +23,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float sprintSpeed = 10.0f;
 
 
-    [Header("Jump Parameters")]
-    [SerializeField] private float gravity = -9.81f * 2;
-    [SerializeField] private float jumpHeight = 3.0f;
+    [Header("Jumping Parameters")]
+    [SerializeField] private float gravity = 30.0f;
+    [SerializeField] private float jumpHeight = 10.0f;
 
 
 
@@ -35,6 +35,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Range(1, 180)] private float upperLookLimit = 80.0f;
     [SerializeField, Range(1, 180)] private float lowerLookLimit = 80.0f;
 
+    
+    [Header("Ground Parameters")]
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundMask; // detect layer when ground checking
+    [SerializeField] private bool onGround;
+    [SerializeField] private float groundDistance = 0.1f;
+
+
+    //Vector3 velocity; // of the fall
     private Camera playerCamera;
     private CharacterController characterController;
     private Vector3 moveDirection;
@@ -52,44 +61,33 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    [Header("Ground Parameters")]
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private LayerMask groundMask; // detact layer when ground checking
-    [SerializeField] private bool isGrounded;
-    [SerializeField] private float groundDistance = 0.7f;
-    Vector3 velocity; // of the fall
-
-    
-   
-
-
-    // Update is called once per frame
     void Update()
     {
-        //checking if we hit the ground to reset our falling velocity, otherwise we will fall faster the next time
-        //check sphere acts as an area that check for connections of the player groundCheck trasnform situated below the player with the groundLayer and its as long as the groundDistance
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        // Update onGround status every frame
+        onGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        if (isGrounded && CanMove)
+        if (CanMove)
         {
             HandleMovementInput();
             HandleMouseLook();
-            ApplyFinalMovements();
         }
 
-
-        //check if the player is on the ground so he can jump
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (canJump && CanMove)
         {
-            //the equation for jumping
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            HandleJump();
         }
 
-        velocity.y += gravity * Time.deltaTime;
-         
-        characterController.Move(velocity * Time.deltaTime);
+        // Reset moveDirection.y when the player is grounded and the downward velocity is significant
+        if (characterController.velocity.y < -1 && onGround)
+        {
+            moveDirection.y = 0;
+        }
 
+        ApplyFinalMovements();
     }
+
+
+
 
     private void HandleMovementInput()
     {
@@ -114,18 +112,30 @@ public class PlayerMovement : MonoBehaviour
         }
             
     }
+    private void HandleJump()
+    {
+        // Apply jump force if the jump key is pressed and the player is on the ground
+        if (ShouldJump)
+        {
+            // Instantly provide an upward force by setting moveDirection.y to jumpHeight
+            moveDirection.y = jumpHeight;
+        }
+    }
+
+
 
     private void ApplyFinalMovements()
     {
-        if (!characterController.isGrounded)
+        // Always apply gravity, pulling the player down
+        moveDirection.y -= gravity * Time.deltaTime;
+
+        // When on the ground, reset the vertical speed to keep the player grounded
+        if (onGround && moveDirection.y < 0)
         {
-
-            moveDirection.y -= gravity * Time.deltaTime;
-
+            moveDirection.y = -2f;
         }
 
-            characterController.Move(moveDirection * Time.deltaTime);
-        
-
+        // Move the character controller
+        characterController.Move(moveDirection * Time.deltaTime);
     }
 }
