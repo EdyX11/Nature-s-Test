@@ -5,12 +5,26 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public bool CanMove { get; private set; } = true;
+    private bool IsSprinting => canSprint && Input.GetKey(sprintKey);
+
+
+    [Header("Functional Options")]
+    [SerializeField] private bool canSprint = true;
+
+
+
+    [Header("Controls")]
+    [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
+
 
 
     [Header("Movement Parameters")]
-    [SerializeField] private float walkSpeed = 6f;
+    [SerializeField] private float walkSpeed = 6.0f;
+    [SerializeField] private float sprintSpeed = 10.0f;
     [SerializeField] private float gravity = -9.81f * 2;
-    [SerializeField] private float jumpHeight = 3f;
+    [SerializeField] private float jumpHeight = 3.0f;
+
+
 
     [Header("Look Parameters")]
     [SerializeField, Range(1, 10)] private float lookSpeedX = 2.0f;
@@ -76,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovementInput()
     {
-        currentInput = new Vector2(walkSpeed * Input.GetAxis("Vertical"), walkSpeed * Input.GetAxis("Horizontal"));
+        currentInput = new Vector2((IsSprinting ? sprintSpeed : walkSpeed) * Input.GetAxis("Vertical"), (IsSprinting ? sprintSpeed : walkSpeed) * Input.GetAxis("Horizontal"));
         float moveDirectionY = moveDirection.y;
         moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.x) + (transform.TransformDirection(Vector3.right) * currentInput.y);
         moveDirection.y = moveDirectionY;
