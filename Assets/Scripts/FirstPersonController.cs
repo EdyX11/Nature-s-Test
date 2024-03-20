@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class FirstPersonController : MonoBehaviour
 {
     public bool CanMove { get; private set; } = true;
     private bool IsSprinting => canSprint && Input.GetKey(sprintKey);
@@ -50,8 +50,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AudioClip[] gravelClips = default;
     private float footstepTimer = 0;
 
+    [Header("Animator")]
+    public Animator _animator;
+  //  private Rigidbody rb;
 
-
+    
 
     //Vector3 velocity; // of the fall
     private Camera playerCamera;
@@ -75,20 +78,25 @@ public class PlayerMovement : MonoBehaviour
     {
         // Update onGround status every frame
         onGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
+        Debug.Log($"On Ground: {onGround}");
         if (CanMove)
         {
             HandleMovementInput();
             HandleMouseLook();
         }
 
-        if (canJump && CanMove)
+        if (canJump && CanMove && onGround)
         {
             HandleJump();
         }
 
-        // Reset moveDirection.y when the player is grounded and the downward velocity is significant
-        if (characterController.velocity.y < -1 && onGround)
+        // Apply gravity continuously when not on the ground
+        if (!onGround)
+        {
+            moveDirection.y -= gravity * Time.deltaTime;
+        }
+        // When on the ground, clamp the moveDirection.y to ensure the player stays grounded
+        else if (moveDirection.y < 0)
         {
             moveDirection.y = 0;
         }
@@ -99,12 +107,20 @@ public class PlayerMovement : MonoBehaviour
 
 
 
+
     private void HandleMovementInput()
     {
-        currentInput = new Vector2((IsSprinting ? sprintSpeed : walkSpeed) * Input.GetAxis("Vertical"), (IsSprinting ? sprintSpeed : walkSpeed) * Input.GetAxis("Horizontal"));
+
+        float verticalAxis = Input.GetAxis("Vertical");
+        float horizontalAxis= Input.GetAxis("Horizontal");
+
+        currentInput = new Vector2((IsSprinting ? sprintSpeed : walkSpeed) * verticalAxis , (IsSprinting ? sprintSpeed : walkSpeed) * horizontalAxis);
         float moveDirectionY = moveDirection.y;
         moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.x) + (transform.TransformDirection(Vector3.right) * currentInput.y);
+        
         moveDirection.y = moveDirectionY;
+        this._animator.SetFloat("Vertical",verticalAxis);
+        this._animator.SetFloat("Horizontal",horizontalAxis);
     }
 
     private void HandleMouseLook()
@@ -124,28 +140,33 @@ public class PlayerMovement : MonoBehaviour
     }
     private void HandleJump()
     {
-        // Apply jump force if the jump key is pressed and the player is on the ground
         if (ShouldJump)
         {
-            // Instantly provide an upward force by setting moveDirection.y to jumpHeight
             moveDirection.y = jumpHeight;
+            this._animator.SetBool("Jump", true); // Indicate jumping start
+        }
+        else if (onGround)
+        {
+            this._animator.SetBool("Jump", false); // Indicate jumping end
         }
     }
+
+
 
 
 
     private void ApplyFinalMovements()
     {
-        // Always apply gravity, pulling the player down
+        // Apply gravity continuously
         moveDirection.y -= gravity * Time.deltaTime;
 
-        // When on the ground, reset the vertical speed to keep the player grounded
+        // Clamp moveDirection.y when on the ground to prevent sinking
         if (onGround && moveDirection.y < 0)
         {
             moveDirection.y = -2f;
         }
 
-        // Move the character controller
         characterController.Move(moveDirection * Time.deltaTime);
     }
+
 }

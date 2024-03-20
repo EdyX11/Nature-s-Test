@@ -14845,10 +14845,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: X Bot final
       objectReference: {fileID: 0}
-    - target: {fileID: 6473740669115663105, guid: 21985c4abe429fd44855a483f164719d, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
