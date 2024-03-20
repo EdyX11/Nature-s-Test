@@ -21,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement Parameters")]
     [SerializeField] private float walkSpeed = 6.0f;
     [SerializeField] private float sprintSpeed = 10.0f;
+
+
+    [Header("Jump Parameters")]
     [SerializeField] private float gravity = -9.81f * 2;
     [SerializeField] private float jumpHeight = 3.0f;
 
@@ -49,15 +52,15 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-
-    public Transform groundCheck;
-    public LayerMask groundMask; // detact layer when ground checking
-
-    [SerializeField] private float groundDistance = 0.4f;
+    [Header("Ground Parameters")]
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundMask; // detact layer when ground checking
+    [SerializeField] private bool isGrounded;
+    [SerializeField] private float groundDistance = 0.7f;
     Vector3 velocity; // of the fall
 
-    bool isGrounded;
-    // private Vector3 lastPosition = new Vector3(0f, 0f, 0f);
+    
+   
 
 
     // Update is called once per frame
