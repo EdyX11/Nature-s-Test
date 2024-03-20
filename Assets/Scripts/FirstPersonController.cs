@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Functional Options")]
     [SerializeField] private bool canSprint = true;
     [SerializeField] private bool canJump = true;
-
+    [SerializeField] private bool useFootsteps = true;
 
     [Header("Controls")]
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
@@ -40,7 +40,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundMask; // detect layer when ground checking
     [SerializeField] private bool onGround;
-    [SerializeField] private float groundDistance = 0.1f;
+    [SerializeField] private float groundDistance = 0.2f;
+
+    [Header("Footstep Parameters")]
+    [SerializeField] private float baseStepSpeed = 0.5f;
+    [SerializeField] private float sprintStepMultiplier = 0.6f;
+    [SerializeField] private AudioSource footStepAudioSource = default;
+    [SerializeField] private AudioClip[] grassClips = default;
+    [SerializeField] private AudioClip[] gravelClips = default;
+    private float footstepTimer = 0;
+
+
 
 
     //Vector3 velocity; // of the fall

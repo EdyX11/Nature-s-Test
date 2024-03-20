@@ -9347,7 +9347,7 @@ GameObject:
   - component: {fileID: 1353496716}
   - component: {fileID: 1353496720}
   m_Layer: 0
-  m_Name: FirstPersonController
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9410,6 +9410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canSprint: 1
   canJump: 1
+  useFootsteps: 1
   sprintKey: 304
   jumpKey: 32
   walkSpeed: 10
@@ -9426,6 +9427,11 @@ MonoBehaviour:
     m_Bits: 64
   onGround: 0
   groundDistance: 0.2
+  baseStepSpeed: 0.5
+  sprintStepMultiplier: 0.6
+  footStepAudioSource: {fileID: 0}
+  grassClips: []
+  gravelClips: []
   rotationX: 0
 --- !u!1001 &1359451647
 PrefabInstance:
