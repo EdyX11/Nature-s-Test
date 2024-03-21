@@ -34,8 +34,11 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField, Range(1, 10)] private float lookSpeedY = 2.0f;
     [SerializeField, Range(1, 180)] private float upperLookLimit = 80.0f;
     [SerializeField, Range(1, 180)] private float lowerLookLimit = 80.0f;
+    [SerializeField] Transform headPos;
+    [SerializeField] Transform Cam;
 
-    
+
+
     [Header("Ground Parameters")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundMask; // detect layer when ground checking
@@ -125,6 +128,8 @@ public class FirstPersonController : MonoBehaviour
 
     private void HandleMouseLook()
     {
+
+        Cam.position = headPos.position;
         if (!InventorySystem.Instance.isOpen && !CraftingSystem.Instance.isOpen && !MenuManager.Instance.isMenuOpen)
         {
             rotationX -= Input.GetAxis("Mouse Y") * lookSpeedY;
