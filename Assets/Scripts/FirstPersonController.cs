@@ -34,8 +34,12 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField, Range(1, 10)] private float lookSpeedY = 2.0f;
     [SerializeField, Range(1, 180)] private float upperLookLimit = 80.0f;
     [SerializeField, Range(1, 180)] private float lowerLookLimit = 80.0f;
+    [SerializeField] Transform headPos = null;
+    [SerializeField] Transform Cam = null;
 
-    
+
+
+
     [Header("Ground Parameters")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundMask; // detect layer when ground checking
@@ -51,10 +55,11 @@ public class FirstPersonController : MonoBehaviour
     private float footstepTimer = 0;
 
     [Header("Animator")]
-    public Animator _animator;
-  //  private Rigidbody rb;
+    [SerializeField] private Animator _animator;
+    public bool isHitting = false;
+    //  private Rigidbody rb;
 
-    
+
 
     //Vector3 velocity; // of the fall
     private Camera playerCamera;
@@ -68,6 +73,8 @@ public class FirstPersonController : MonoBehaviour
     {
         playerCamera = GetComponentInChildren<Camera>();
         characterController = GetComponent<CharacterController>();
+        _animator = GetComponentInChildren<Animator>();
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -79,16 +86,22 @@ public class FirstPersonController : MonoBehaviour
         // Update onGround status every frame
         onGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         Debug.Log($"On Ground: {onGround}");
+        //check if can move
         if (CanMove)
         {
             HandleMovementInput();
             HandleMouseLook();
         }
-
+        // if can jump
         if (canJump && CanMove && onGround)
         {
             HandleJump();
         }
+        //attack
+            HandleAttack();
+            
+
+
 
         // Apply gravity continuously when not on the ground
         if (!onGround)
@@ -119,12 +132,15 @@ public class FirstPersonController : MonoBehaviour
         moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.x) + (transform.TransformDirection(Vector3.right) * currentInput.y);
         
         moveDirection.y = moveDirectionY;
-        this._animator.SetFloat("Vertical",verticalAxis);
-        this._animator.SetFloat("Horizontal",horizontalAxis);
+        _animator.SetFloat("Vertical", verticalAxis);
+        _animator.SetFloat("Horizontal", horizontalAxis);
+
+
     }
 
     private void HandleMouseLook()
     {
+        Cam.position = headPos.position;
         if (!InventorySystem.Instance.isOpen && !CraftingSystem.Instance.isOpen && !MenuManager.Instance.isMenuOpen)
         {
             rotationX -= Input.GetAxis("Mouse Y") * lookSpeedY;
@@ -143,13 +159,48 @@ public class FirstPersonController : MonoBehaviour
         if (ShouldJump)
         {
             moveDirection.y = jumpHeight;
-            this._animator.SetBool("Jump", true); // Indicate jumping start
+            _animator.SetBool("Jump", true); // Indicate jumping start
         }
         else if (onGround)
         {
-            this._animator.SetBool("Jump", false); // Indicate jumping end
+            _animator.SetBool("Jump", false); // Indicate jumping end
         }
     }
+
+    private void HandleAttack()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0) &&
+            InventorySystem.Instance.isOpen == false &&
+            CraftingSystem.Instance.isOpen == false &&
+            SelectionManager.Instance.handIsVisible == false &&
+            !isHitting)
+        {
+            Debug.Log("Attack initiated");
+            isHitting = true;
+            _animator.SetTrigger("Attack");
+            SoundManager.Instance.PlaySound(SoundManager.Instance.toolSwingSound);
+        }
+         // Replace 1.0f with the length of your attack animation
+    }
+
+    public void GetHitOnce()
+    {
+        Debug.Log("GetHitOnce called");
+        GameObject selectedTree = SelectionManager.Instance.selectedTree;
+        if (selectedTree != null)
+        {
+            SoundManager.Instance.PlaySound(SoundManager.Instance.axeHitTreeSound);
+            selectedTree.GetComponent<ChoppableTree>().GetHitTree();
+        }
+    }
+
+    public void ResetHit()
+    {
+        
+        isHitting = false;
+        Debug.Log("Attack reset and ready for next attack.");
+    }
+
 
 
 

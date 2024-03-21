@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7467462b6d603914ea6feb077f973edd
+guid: 51888752a3969de43a2cc3150cae61cb
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Jump
+      name: Combat Idle
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 30
+      lastFrame: 338
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
