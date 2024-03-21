@@ -71,6 +71,7 @@ public class FirstPersonController : MonoBehaviour
     {
         playerCamera = GetComponentInChildren<Camera>();
         characterController = GetComponent<CharacterController>();
+        _animator = GetComponentInChildre<Animator>;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -122,8 +123,8 @@ public class FirstPersonController : MonoBehaviour
         moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.x) + (transform.TransformDirection(Vector3.right) * currentInput.y);
         
         moveDirection.y = moveDirectionY;
-        this._animator.SetFloat("Vertical",verticalAxis);
-        this._animator.SetFloat("Horizontal",horizontalAxis);
+        _animator.SetFloat("Vertical",verticalAxis);
+        _animator.SetFloat("Horizontal",horizontalAxis);
     }
 
     private void HandleMouseLook()
@@ -148,11 +149,11 @@ public class FirstPersonController : MonoBehaviour
         if (ShouldJump)
         {
             moveDirection.y = jumpHeight;
-            this._animator.SetBool("Jump", true); // Indicate jumping start
+            _animator.SetBool("Jump", true); // Indicate jumping start
         }
         else if (onGround)
         {
-            this._animator.SetBool("Jump", false); // Indicate jumping end
+            _animator.SetBool("Jump", false); // Indicate jumping end
         }
     }
 
