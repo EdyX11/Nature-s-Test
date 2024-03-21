@@ -34,12 +34,8 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField, Range(1, 10)] private float lookSpeedY = 2.0f;
     [SerializeField, Range(1, 180)] private float upperLookLimit = 80.0f;
     [SerializeField, Range(1, 180)] private float lowerLookLimit = 80.0f;
-    [SerializeField] Transform headPos = null;
-    [SerializeField] Transform Cam = null;
 
-
-
-
+    
     [Header("Ground Parameters")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundMask; // detect layer when ground checking
@@ -140,7 +136,6 @@ public class FirstPersonController : MonoBehaviour
 
     private void HandleMouseLook()
     {
-        Cam.position = headPos.position;
         if (!InventorySystem.Instance.isOpen && !CraftingSystem.Instance.isOpen && !MenuManager.Instance.isMenuOpen)
         {
             rotationX -= Input.GetAxis("Mouse Y") * lookSpeedY;
@@ -180,7 +175,7 @@ public class FirstPersonController : MonoBehaviour
             _animator.SetTrigger("Attack");
             SoundManager.Instance.PlaySound(SoundManager.Instance.toolSwingSound);
         }
-         // Replace 1.0f with the length of your attack animation
+        StartCoroutine(ResetHit(2.1f)); // Replace 1.0f with the length of your attack animation
     }
 
     public void GetHitOnce()
@@ -194,9 +189,9 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
-    public void ResetHit()
+    private IEnumerator ResetHit(float waitTime)
     {
-        
+        yield return new WaitForSeconds(waitTime);
         isHitting = false;
         Debug.Log("Attack reset and ready for next attack.");
     }
