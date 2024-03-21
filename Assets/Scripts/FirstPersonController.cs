@@ -71,7 +71,7 @@ public class FirstPersonController : MonoBehaviour
     {
         playerCamera = GetComponentInChildren<Camera>();
         characterController = GetComponent<CharacterController>();
-        _animator = GetComponentInChildre<Animator>;
+        _animator = GetComponentInChildren<Animator>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -123,8 +123,12 @@ public class FirstPersonController : MonoBehaviour
         moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.x) + (transform.TransformDirection(Vector3.right) * currentInput.y);
         
         moveDirection.y = moveDirectionY;
-        _animator.SetFloat("Vertical",verticalAxis);
-        _animator.SetFloat("Horizontal",horizontalAxis);
+        // Update animator with the current movement values
+        _animator.SetFloat("Vertical", verticalAxis);
+        _animator.SetFloat("Horizontal", horizontalAxis);
+
+        // Update the IsSprinting parameter in the animator based on the IsSprinting variable
+        _animator.SetBool("IsSprinting", IsSprinting);
     }
 
     private void HandleMouseLook()
