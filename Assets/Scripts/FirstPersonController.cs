@@ -83,6 +83,7 @@ public class FirstPersonController : MonoBehaviour
         // Update onGround status every frame
         onGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         Debug.Log($"On Ground: {onGround}");
+        HandleStamina();
         if (CanMove)
         {
             HandleMovementInput();
@@ -160,7 +161,20 @@ public class FirstPersonController : MonoBehaviour
             _animator.SetBool("Jump", false); // Indicate jumping end
         }
     }
+    private void HandleStamina()
+    {
+        if(IsSprinting && currentInput != Vector2.zero)
+        {
+            PlayerState.Instance.currentCalories -= 5 ;
+            if (PlayerState.Instance.currentCalories < 0)
+                PlayerState.Instance.currentCalories = 0;
+            if (PlayerState.Instance.currentCalories <= 500) ;
+         
+            canSprint = false;
+        }
 
+
+    }
 
 
 

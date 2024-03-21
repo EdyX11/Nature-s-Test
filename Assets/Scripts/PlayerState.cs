@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerState : MonoBehaviour
 {
@@ -8,27 +9,30 @@ public class PlayerState : MonoBehaviour
 
     public static PlayerState Instance { get;  set; }
 
-    // ---- PLAYER HEALTH ---- 
-    public float currentHealth;
-    public float maxHealth;
+    
+    [Header("---- PLAYER HEALTH ---- ")]
+    [SerializeField] public float currentHealth;
+    [SerializeField] public float maxHealth;
+    public Action<float> OnTakeDamage;
+    public Action<float> OnDamage;
+    public Action<float> OnHeal;
 
 
-    // ---- PLAYER CALORIES ----
+    [Header("---- PLAYER CALORIES ----")]
 
-
-    public float currentCalories;
-    public float maxCalories;
+    [SerializeField] public float currentCalories;
+    [SerializeField] public float maxCalories;
 
     float distanceTravelled = 0;
     Vector3 lastPosition;
 
     public GameObject playerBody;
 
-    // ---- PLAYER HYDRATION ----
+  
+    [Header("---- PLAYER HYDRATION ----")]
 
-
-    public float currentHydrationPercent;
-    public float maxHydrationPercent;
+    [SerializeField] public float currentHydrationPercent;
+    [SerializeField] public float maxHydrationPercent;
 
     //public bool isHydrationActive;
 
@@ -71,27 +75,31 @@ public class PlayerState : MonoBehaviour
     }
     void Update()
     {
-        distanceTravelled += Vector3.Distance(playerBody.transform.position, lastPosition);
-        lastPosition = playerBody.transform.position; // last position is current position
+        LoseCalories();
 
-        if(distanceTravelled >= 5) // when travelling distance of value 5 lose 1 calorie
-        {
-            distanceTravelled = 0;
-            currentCalories -= 1; // change calorie loss here 
-        }
-
-
-
-        if (currentHealth > 0 && Input.GetKeyDown(KeyCode.N))
-        {
-            currentHealth -= 10; // here lose health
-        }
 
         
     }
 
+    private void OnEnable()
+    {
+
+
+        OnTakeDamage += ApplyDamage;
+
+    }
+
+    private void OnDisable()
+    {
+
+        OnTakeDamage -= ApplyDamage;
+    }
+
+    #region ---SETTERS----
+
     public void setHealth(float newHealth)
     {
+
 
 
         currentHealth = newHealth;
@@ -111,4 +119,52 @@ public class PlayerState : MonoBehaviour
         currentHydrationPercent = newHydraytion;
 
     }
+    #endregion
+
+    public void TakeDamage(float damageAmount)
+    {
+        if (OnTakeDamage != null)
+        {
+            OnTakeDamage(damageAmount);
+        }
+        else
+        {
+            // Default damage handling if no specific action is subscribed
+            ApplyDamage(damageAmount);
+        }
+    }
+
+    private void LoseCalories()
+    {
+
+        distanceTravelled += Vector3.Distance(playerBody.transform.position, lastPosition);
+        lastPosition = playerBody.transform.position; // last position is current position
+
+        if (distanceTravelled >= 5) // when travelling distance of value 5 lose 1 calorie
+        {
+            distanceTravelled = 0;
+            currentCalories -= 1; // change calorie loss here 
+        }
+    }
+    private void ApplyDamage(float dmg)
+    {
+
+        print("taking damage");
+        currentHealth -= dmg;
+        OnDamage?.Invoke(currentHealth);// short way to if OnDamage == null or not do something
+        if (currentHealth <= 0)
+            KillPlayer();
+       
+    }
+
+    private void KillPlayer()
+    {
+        currentHealth = 0;
+        print("player dead");
+        //go to main menu 
+
+    }
+
+ 
+
 }
