@@ -15267,7 +15267,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   onGround: 0
-  groundDistance: 0.3
+  groundDistance: 0.2
   baseStepSpeed: 0.5
   sprintStepMultiplier: 0.6
   footStepAudioSource: {fileID: 0}
