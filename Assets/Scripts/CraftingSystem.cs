@@ -6,6 +6,7 @@ using TMPro;
 
 public class CraftingSystem : MonoBehaviour
 {
+    public static CraftingSystem Instance { get; set; }
 
     public GameObject craftingScreenUI;
     public GameObject toolsScreenUI,survivalScreenUI,refineScreenUI;
@@ -33,8 +34,7 @@ public class CraftingSystem : MonoBehaviour
 
 
 
-    public static CraftingSystem Instance { get; set; }
-
+   
 
     private void Awake()
     {

@@ -114,7 +114,7 @@ public class FirstPersonController : MonoBehaviour
         currentInput = new Vector2((IsSprinting ? sprintSpeed : walkSpeed) * verticalAxis , (IsSprinting ? sprintSpeed : walkSpeed) * horizontalAxis);
         float moveDirectionY = moveDirection.y;
         moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.x) + (transform.TransformDirection(Vector3.right) * currentInput.y);
-       
+        
         moveDirection.y = moveDirectionY;
         // Update animator with the current movement values
         _animator.SetFloat("Vertical", verticalAxis);
@@ -127,7 +127,8 @@ public class FirstPersonController : MonoBehaviour
     private void HandleMouseLook()
     {
 
-        Cam.position = headPos.position;
+       Cam.position = headPos.position;
+        
         if (!InventorySystem.Instance.isOpen && !CraftingSystem.Instance.isOpen && !MenuManager.Instance.isMenuOpen)
         {
             rotationX -= Input.GetAxis("Mouse Y") * lookSpeedY;
@@ -157,7 +158,7 @@ public class FirstPersonController : MonoBehaviour
     {
         if(IsSprinting && currentInput != Vector2.zero)
         {
-            PlayerState.Instance.currentCalories -= 5 ;
+            PlayerState.Instance.currentCalories -= 1 * Time.deltaTime;
             if (PlayerState.Instance.currentCalories < 0)
                 PlayerState.Instance.currentCalories = 0;
             if (PlayerState.Instance.currentCalories <= 500) ;
