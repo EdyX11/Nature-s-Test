@@ -61,7 +61,7 @@ public class FirstPersonController : MonoBehaviour
 
     //Vector3 velocity; // of the fall
     private Camera playerCamera;
-    private CharacterController characterController;
+    [SerializeField]  private CharacterController characterController;
     private Vector3 moveDirection;
     private Vector2 currentInput;
 
@@ -71,7 +71,7 @@ public class FirstPersonController : MonoBehaviour
     {
         playerCamera = GetComponentInChildren<Camera>();
         characterController = GetComponent<CharacterController>();
-        _animator = GetComponentInChildren<Animator>();
+        _animator = GetComponent<Animator>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -88,25 +88,17 @@ public class FirstPersonController : MonoBehaviour
         {
             HandleMovementInput();
             HandleMouseLook();
+            if (canJump)
+            {
+                HandleJump();
+            }
+            ApplyFinalMovements();
+
         }
 
-        if (canJump && CanMove && onGround)
-        {
-            HandleJump();
-        }
 
-        // Apply gravity continuously when not on the ground
-        if (!onGround)
-        {
-            moveDirection.y -= gravity * Time.deltaTime;
-        }
-        // When on the ground, clamp the moveDirection.y to ensure the player stays grounded
-        else if (moveDirection.y < 0)
-        {
-            moveDirection.y = 0;
-        }
 
-        ApplyFinalMovements();
+       
     }
 
 
@@ -122,7 +114,7 @@ public class FirstPersonController : MonoBehaviour
         currentInput = new Vector2((IsSprinting ? sprintSpeed : walkSpeed) * verticalAxis , (IsSprinting ? sprintSpeed : walkSpeed) * horizontalAxis);
         float moveDirectionY = moveDirection.y;
         moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.x) + (transform.TransformDirection(Vector3.right) * currentInput.y);
-        
+       
         moveDirection.y = moveDirectionY;
         // Update animator with the current movement values
         _animator.SetFloat("Vertical", verticalAxis);
@@ -172,6 +164,7 @@ public class FirstPersonController : MonoBehaviour
          
             canSprint = false;
         }
+        canSprint = true;
 
 
     }
@@ -181,16 +174,16 @@ public class FirstPersonController : MonoBehaviour
 
     private void ApplyFinalMovements()
     {
-        // Apply gravity continuously
+        Vector3 beforeMovePosition = characterController.transform.position;
+
+        // Apply gravity and move the character controller
         moveDirection.y -= gravity * Time.deltaTime;
-
-        // Clamp moveDirection.y when on the ground to prevent sinking
-        if (onGround && moveDirection.y < 0)
-        {
-            moveDirection.y = -2f;
-        }
-
+        if (onGround && moveDirection.y < 0) { moveDirection.y = -2f; }
         characterController.Move(moveDirection * Time.deltaTime);
+
+        Vector3 afterMovePosition = characterController.transform.position;
+        Debug.Log($"Before Move: {beforeMovePosition}, After Move: {afterMovePosition}");
     }
+
 
 }
