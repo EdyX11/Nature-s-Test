@@ -127,7 +127,7 @@ public class FirstPersonController : MonoBehaviour
     private void HandleMouseLook()
     {
 
-       Cam.position = headPos.position;
+      Cam.position = headPos.position;
         
         if (!InventorySystem.Instance.isOpen && !CraftingSystem.Instance.isOpen && !MenuManager.Instance.isMenuOpen)
         {
