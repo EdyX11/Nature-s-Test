@@ -9,7 +9,9 @@ public class EquipableItem : MonoBehaviour
 {
 
     private Animator animator;
-    private bool isHitting = false; 
+    private bool isHittingAxe = false;
+    private bool isHittingPickAxe = false;
+
 
 
     // Start is called before the first frame update
@@ -23,22 +25,48 @@ public class EquipableItem : MonoBehaviour
 
 
     {
+        HitTreeAxe();
+
+
+    }
+
+    private void HitTreeAxe()
+    {
 
         //left click
         if (Input.GetMouseButtonDown(0) &&
             InventorySystem.Instance.isOpen == false &&
             CraftingSystem.Instance.isOpen == false &&
             SelectionManager.Instance.handIsVisible == false &&
-            !isHitting
+            !isHittingAxe
 
             )
 
         {
-            isHitting = true;
+            isHittingAxe = true;
             animator.SetTrigger("hit");
         }
     }
-       public  void GetHitOnce()
+    private void HitRockPickAxe()
+    {
+
+        //left click
+        if (Input.GetMouseButtonDown(0) &&
+            InventorySystem.Instance.isOpen == false &&
+            CraftingSystem.Instance.isOpen == false &&
+            SelectionManager.Instance.handIsVisible == false &&
+            !isHittingPickAxe
+
+            )
+
+        {
+            isHittingPickAxe = true;
+            animator.SetTrigger("hit");
+        }
+    }
+
+
+    public  void GetHitOnceAxe()
         {
 
             GameObject selectedTree = SelectionManager.Instance.selectedTree;
@@ -50,16 +78,31 @@ public class EquipableItem : MonoBehaviour
             }
 
         }
+    public void GetHitOncePickAxe()
+    {
 
-    
+        GameObject selectedTree = SelectionManager.Instance.selectedTree;
+        if (selectedTree != null)
+        {
+            SoundManager.Instance.PlaySound(SoundManager.Instance.axeHitTreeSound);// tree gets hit here
+            selectedTree.GetComponent<ChoppableTree>().GetHitTree();
+
+        }
+
+    }
+
+
 
     public void PlayToolSwingSound()
     {
         SoundManager.Instance.PlaySound(SoundManager.Instance.toolSwingSound);
     }
-    public void ResetHit()
+    public void ResetHitAxe()
     {
-        isHitting = false;
+        isHittingAxe = false;
     }
-
+    public void ResetHitPickAxe()
+    {
+        isHittingPickAxe = false;
+    }
 }

@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: axe_hit
+  m_Name: pickaxe_hit
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -487,14 +487,14 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.5
-    functionName: GetHitOnceAxe
+    functionName: GetHitOncePickAxe
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1
-    functionName: ResetHitAxe
+    functionName: ResetHitPickAxe()
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

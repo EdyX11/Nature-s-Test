@@ -11,7 +11,7 @@ public class FirstPersonController : MonoBehaviour
     [Header("Functional Options")]
     [SerializeField] private bool canSprint = true;
     [SerializeField] private bool canJump = true;
-    [SerializeField] private bool useFootsteps = true;
+   // [SerializeField] private bool useFootsteps = true;
 
     [Header("Controls")]
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
@@ -46,12 +46,12 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private float groundDistance = 0.2f;
 
     [Header("Footstep Parameters")]
-    [SerializeField] private float baseStepSpeed = 0.5f;
-    [SerializeField] private float sprintStepMultiplier = 0.6f;
-    [SerializeField] private AudioSource footStepAudioSource = default;
-    [SerializeField] private AudioClip[] grassClips = default;
-    [SerializeField] private AudioClip[] gravelClips = default;
-    private float footstepTimer = 0;
+    //[SerializeField] private float baseStepSpeed = 0.5f;
+   // [SerializeField] private float sprintStepMultiplier = 0.6f;
+    //[SerializeField] private AudioSource footStepAudioSource = default;
+   // [SerializeField] private AudioClip[] grassClips = default;
+    //[SerializeField] private AudioClip[] gravelClips = default;
+  //  private float footstepTimer = 0;
 
     [Header("Animator")]
     public Animator _animator;
@@ -59,7 +59,7 @@ public class FirstPersonController : MonoBehaviour
 
     
 
-    //Vector3 velocity; // of the fall
+    //Vector3 velocity; 
     private Camera playerCamera;
     [SerializeField]  private CharacterController characterController;
     private Vector3 moveDirection;
@@ -83,7 +83,7 @@ public class FirstPersonController : MonoBehaviour
         // Update onGround status every frame
         onGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         Debug.Log($"On Ground: {onGround}");
-        HandleStamina();
+        //HandleStamina();
         if (CanMove)
         {
             HandleMovementInput();
@@ -154,7 +154,7 @@ public class FirstPersonController : MonoBehaviour
             _animator.SetBool("Jump", false); // Indicate jumping end
         }
     }
-    private void HandleStamina()
+    /*private void HandleStamina()
     {
         if(IsSprinting && currentInput != Vector2.zero)
         {
@@ -168,7 +168,7 @@ public class FirstPersonController : MonoBehaviour
         canSprint = true;
 
 
-    }
+    }*/
 
 
 
