@@ -47,7 +47,7 @@ public class EquipableItem : MonoBehaviour
             SoundManager.Instance.PlaySound(SoundManager.Instance.axeHitTreeSound);// tree gets hit here
             selectedTree.GetComponent<ChoppableTree>().GetHitTree();
                 
-        }
+            }
 
         }
 

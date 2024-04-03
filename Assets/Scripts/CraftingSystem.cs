@@ -17,12 +17,15 @@ public class CraftingSystem : MonoBehaviour
     Button toolsBTN,survivalBTN,refineBTN;
 
     // Craft Buttons
-    Button craftAxeBTN,craftPlankBTN;
+    Button craftAxeBTN,craftPlankBTN, craftPickAxeBTN;
 
-    //Requirment text
+    //Requirement text
     Text AxeReq1;
     Text AxeReq2;
     Text PlankReq1;
+
+    Text PickAxeReq1;
+    Text PickAxeReq2;
     
 
     public bool isOpen;
@@ -31,10 +34,10 @@ public class CraftingSystem : MonoBehaviour
 
     public Blueprint AxeBLP = new Blueprint("Axe", 1 , 2 , "Stone", 3 , "Stick" , 3 );
     public Blueprint PlankBLP = new Blueprint("Plank", 2 , 1, "Log", 1, "", 0);
+    public Blueprint PickAxeBLP = new Blueprint("PickAxe", 1, 2, "Iron", 3, "Plank", 3);
 
 
 
-   
 
     private void Awake()
     {
@@ -87,7 +90,11 @@ public class CraftingSystem : MonoBehaviour
         craftPlankBTN = refineScreenUI.transform.Find("Plank").transform.Find("Button").GetComponent<Button>();
         craftPlankBTN.onClick.AddListener(delegate { CraftAnyItem(PlankBLP); });
 
-
+        //PickAxe
+        PickAxeReq1 = toolsScreenUI.transform.Find("PickAxe").transform.Find("req1").GetComponent<Text>();
+        PickAxeReq2 = toolsScreenUI.transform.Find("PickAxe").transform.Find("req2").GetComponent<Text>();
+        craftPickAxeBTN = toolsScreenUI.transform.Find("PickAxe").transform.Find("Button").GetComponent<Button>();
+        craftPickAxeBTN.onClick.AddListener(delegate { CraftAnyItem(PickAxeBLP); });
 
     }
     void OpenToolsCategory()
@@ -117,7 +124,7 @@ public class CraftingSystem : MonoBehaviour
 
     void CraftAnyItem(Blueprint blueprintToCraft)
     {
-        //add item into invetory
+        //add item into inventory
         //Debug.Log("Item added to invetory");
         //loop for how mmany items we need to produce according to blueprint
 
@@ -214,6 +221,11 @@ public class CraftingSystem : MonoBehaviour
         int stick_count = 0;
 
         int log_count = 0; 
+        
+        int iron_count = 0;
+
+        int plank_count = 0;
+
 
         inventoryItemList = InventorySystem.Instance.itemList;
 
@@ -232,6 +244,12 @@ public class CraftingSystem : MonoBehaviour
 
                 case "Log":
                     log_count += 1;
+                    break;
+                case "Plank":
+                    plank_count += 1;
+                    break;
+                case "Iron":
+                    iron_count += 1;
                     break;
 
 
@@ -274,6 +292,19 @@ public class CraftingSystem : MonoBehaviour
 
         }
 
+        // ----FOR THE PICK AXE ----
+        PickAxeReq1.text = "3 Iron[" + iron_count + "]";
+        PickAxeReq2.text = "3 Plank[" + plank_count + "]";
+        if (iron_count >= 3 && plank_count >= 3 && InventorySystem.Instance.CheckSlotsAvailable(1))
+        {
+            craftPickAxeBTN.gameObject.SetActive(true);
+        }
+        else
+        {
+
+            craftPickAxeBTN.gameObject.SetActive(false);
+
+        }
     }
 
 }
