@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 23733905104197934}
   - component: {fileID: 64819107711435158}
   - component: {fileID: -7049788338211978585}
+  - component: {fileID: 472746196377621899}
+  - component: {fileID: 1321814788324334099}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Untagged
@@ -122,6 +124,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInRange: 0
   ItemName: Rock
+--- !u!65 &472746196377621899
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1562119382739742}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 9.29095, y: 5.5235972, z: 8.393122}
+  m_Center: {x: 1.1368684e-13, y: 2.55743, z: 0.00000047683713}
+--- !u!114 &1321814788324334099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1562119382739742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bcc4ac4056b1184bb919523bf8c5a62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInRange: 0
+  canBeMined: 0
 --- !u!1 &5059500342285391150
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7756390683360052833}
   - component: {fileID: 314924184728326628}
   - component: {fileID: 7775152522425030485}
+  - component: {fileID: 371937439525166406}
   m_Layer: 0
   m_Name: Ore
   m_TagString: pickable
@@ -106,3 +107,17 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 796a54e0e80758941867f0b2fde99e56, type: 3}
+--- !u!114 &371937439525166406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030847128967815033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64757bfcd0f43a049b2aed26a61d3a17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInRange: 0
+  ItemName: Ore
