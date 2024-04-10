@@ -7,16 +7,16 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class ChoppableTree : MonoBehaviour
 {
-    public bool playerInRange;
-    public bool canBeChopped;
-
-    public float treeMaxHealth;
-    public float treeHealth;
-
-
-    public Animator animator;
-
-    public float caloriesSpentCuttingTrees = 20;
+    [Header("Conditions")]
+    [SerializeField] public bool playerInRange = true;
+    [SerializeField] public bool canBeChopped = true;
+    // public bool playerInRange;
+    // public bool canBeChopped;
+    [Header("TREE")]
+    [SerializeField] public float treeMaxHealth;
+    [SerializeField] public float treeHealth;
+    [SerializeField] public Animator animator;
+    [SerializeField] public float caloriesSpentCuttingTrees = 20;
 
 
    private void Start()
@@ -71,7 +71,7 @@ public class ChoppableTree : MonoBehaviour
         
     }
 
-    void CutTree()
+    public void CutTree()
     {
         Vector3 treePosition = transform.position;// save postion to spawn the logs where the tree was cut 
         Destroy(transform.parent.transform.parent.gameObject);

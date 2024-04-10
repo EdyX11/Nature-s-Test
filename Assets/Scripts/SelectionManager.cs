@@ -72,79 +72,68 @@ public class SelectionManager : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            var selectionTransform = hit.transform;
-            InteractableObject interactable = selectionTransform.GetComponent<InteractableObject>();
+            HandleChoppableTreeInteraction(hit);
+            HandleInteractableObjectInteraction(hit);
+        }
+        else
+        {
+            // Handle the scenario where no objects are hit
+            onTarget = false;
+            interaction_Info_UI.SetActive(false);
+            handIcon.gameObject.SetActive(false);
+            centerDotImage.gameObject.SetActive(true);
+            handIsVisible = false;
+        }
+    }
+    private void HandleInteractableObjectInteraction(RaycastHit hit)
+    {
+        InteractableObject interactable = hit.transform.GetComponent<InteractableObject>();
+        if (interactable && interactable.playerInRange)
+        {
+            onTarget = true;
+            selectedObject = interactable.gameObject;
+            interaction_text.text = interactable.GetItemName();
+            interaction_Info_UI.SetActive(true);
 
-            ChoppableTree choppableTree = selectionTransform.GetComponent<ChoppableTree>();
-
-            if (choppableTree  && choppableTree.playerInRange)
+            if (interactable.CompareTag("pickable"))
             {
-                choppableTree.canBeChopped = true;
-                selectedTree = choppableTree.gameObject;
-                chopHolder.gameObject.SetActive(true);
-
-
+                centerDotImage.gameObject.SetActive(false);
+                handIcon.gameObject.SetActive(true);
+                handIsVisible = true;
             }
             else
             {
-                if(selectedTree != null)
-                {
-
-                    selectedTree.gameObject.GetComponent<ChoppableTree>().canBeChopped = false;
-                    selectedTree = null;
-                    chopHolder.gameObject.SetActive(false);
-
-                }
-
-
-
-            }
-
-
-
-
-            if (interactable  && interactable.playerInRange)
-            {
-
-                onTarget = true;
-                selectedObject = interactable.gameObject;
-
-                interaction_text.text = interactable.GetItemName();
-                interaction_Info_UI.SetActive(true);
-
-                //if to change hand to dot
-                if (interactable.CompareTag("pickable"))
-                {
-                    centerDotImage.gameObject.SetActive(false);
-                    handIcon.gameObject.SetActive(true);
-
-                    handIsVisible = true;
-                }
-                else
-                {
-                    handIcon.gameObject.SetActive(false);
-                    centerDotImage.gameObject.SetActive(true);
-                    handIsVisible = false;
-                }
-            }
-            else//if there is a hit but no interactable script
-            {   
-                onTarget = false;
-                interaction_Info_UI.SetActive(false);
                 handIcon.gameObject.SetActive(false);
                 centerDotImage.gameObject.SetActive(true);
-
-                handIsVisible = false;  
+                handIsVisible = false;
             }
         }
-        else // if the is no hit at all 
+        else
         {
             onTarget = false;
             interaction_Info_UI.SetActive(false);
             handIcon.gameObject.SetActive(false);
             centerDotImage.gameObject.SetActive(true);
-
             handIsVisible = false;
+        }
+    }
+    private void HandleChoppableTreeInteraction(RaycastHit hit)
+    {
+        ChoppableTree choppableTree = hit.transform.GetComponent<ChoppableTree>();
+        if (choppableTree && choppableTree.playerInRange)
+        {
+            choppableTree.canBeChopped = true;
+            selectedTree = choppableTree.gameObject;
+            chopHolder.gameObject.SetActive(true);
+        }
+        else
+        {
+            if (selectedTree != null)
+            {
+                selectedTree.GetComponent<ChoppableTree>().canBeChopped = false;
+                selectedTree = null;
+                chopHolder.gameObject.SetActive(false);
+            }
         }
     }
 
