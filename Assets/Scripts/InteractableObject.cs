@@ -6,8 +6,8 @@ public class InteractableObject : MonoBehaviour
 {
 
     [Header("Conditions")]
-    [SerializeField] public bool playerInRange;
-    [SerializeField] public string ItemName;
+    public bool playerInRange;
+    public string ItemName;
 
     public string GetItemName() { 
         

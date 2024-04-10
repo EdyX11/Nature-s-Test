@@ -13,7 +13,7 @@ public class HydrationBar : MonoBehaviour
     public GameObject playerState;
 
     [Header("HYDRATION")]
-    [SerializeField] private float currentHydration, maxHydration;
+     private float currentHydration, maxHydration;
 
 
 

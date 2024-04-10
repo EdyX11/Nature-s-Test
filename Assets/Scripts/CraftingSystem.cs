@@ -8,8 +8,8 @@ public class CraftingSystem : MonoBehaviour
 {
     public static CraftingSystem Instance { get; set; }
     [Header("USER INTERFACE")]
-    [SerializeField] public GameObject craftingScreenUI;
-    [SerializeField] public GameObject toolsScreenUI,survivalScreenUI,refineScreenUI;
+    public GameObject craftingScreenUI;
+    public GameObject toolsScreenUI,survivalScreenUI,refineScreenUI;
 
     [Header("ITEM LIST")]
     public List<string> inventoryItemList = new List<string>();

@@ -8,7 +8,7 @@ using UnityEngine;
 public class EquipableItem : MonoBehaviour
 {
     [Header("Conditions")]
-    [SerializeField] private Animator animator;
+     private Animator animator;
     [SerializeField] private bool isHittingAxe = false;
    
 

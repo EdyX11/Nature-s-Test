@@ -6,8 +6,8 @@ public class GlobalState : MonoBehaviour
 {
     public static GlobalState Instance { get; private set; }
     [Header("Resource Status")]
-    [SerializeField] public float resourceHealth;
-    [SerializeField] public float resourceMaxHealth;
+    public float resourceHealth;
+    public float resourceMaxHealth;
 
     private void Awake()
     {

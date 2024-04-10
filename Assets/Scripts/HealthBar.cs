@@ -13,7 +13,7 @@ public class HealthBar : MonoBehaviour
     public GameObject playerState;
 
     [Header("HEALTH")]
-    [SerializeField] private float currentHealth, maxHealth;
+   private float currentHealth, maxHealth;
 
 
 

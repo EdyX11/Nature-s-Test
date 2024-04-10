@@ -15,8 +15,8 @@ public class ChoppableTree : MonoBehaviour
     [Header("TREE")]
     [SerializeField] public float treeMaxHealth;
     [SerializeField] public float treeHealth;
-    [SerializeField] public Animator animator;
-    [SerializeField] public float caloriesSpentCuttingTrees = 20;
+    public Animator animator;
+    public float caloriesSpentCuttingTrees = 20;
 
 
    private void Start()

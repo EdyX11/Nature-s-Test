@@ -11,7 +11,7 @@ public class CaloriesBar : MonoBehaviour
     public GameObject playerState;
 
     [Header("Calories")]
-    [SerializeField] private float currentCalories, maxCalories;
+    private float currentCalories, maxCalories;
 
 
 
