@@ -2000,7 +2000,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 636b6cc0c5370c9499eab75638e4765d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4ad16adfdf2d1a441879a598de742eb6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2897,7 +2897,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &125884202
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10188,10 +10188,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: d7cef758c3e64ca4e95f803895346cc9, type: 3}
-    m_FontSize: 20
+    m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -10199,7 +10199,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PickAxe
+  m_Text: IronSword
 --- !u!222 &465578313
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13786,12 +13786,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 681685027}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.30308, y: 2.04, z: 11.514601}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -537.4387, y: -117.61171, z: 23.955544}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1481836610}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &687119800
 GameObject:
@@ -13863,7 +13863,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2 Pure Iron[0]
+  m_Text: 2 Ore[0]
 --- !u!222 &687119803
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -26297,7 +26297,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Iron Sword
+  m_Text: OreSword
 --- !u!222 &1434577837
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -27153,6 +27153,7 @@ Transform:
   - {fileID: 1278478614}
   - {fileID: 139567107}
   - {fileID: 277247330}
+  - {fileID: 681685029}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1484540074 stripped
@@ -41720,11 +41721,10 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1481836610}
   - {fileID: 1892020290676522186}
+  - {fileID: 1567546678}
   - {fileID: 705507995}
   - {fileID: 1567699451}
   - {fileID: 333451182}
-  - {fileID: 1567546678}
-  - {fileID: 1481836610}
-  - {fileID: 681685029}
   - {fileID: 1765218451}

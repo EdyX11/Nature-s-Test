@@ -18,15 +18,15 @@ public class CraftingSystem : MonoBehaviour
     Button toolsBTN,survivalBTN,refineBTN;
 
     // Craft Buttons
-    Button craftAxeBTN,craftPlankBTN, craftPickAxeBTN;
+    Button craftAxeBTN,craftPlankBTN, craftIronSwordBTN;
 
     //Requirement text
     Text AxeReq1;
     Text AxeReq2;
     Text PlankReq1;
 
-    Text PickAxeReq1;
-    Text PickAxeReq2;
+    Text IronSwordReq1;
+    Text IronSwordReq2;
 
 
     
@@ -35,7 +35,7 @@ public class CraftingSystem : MonoBehaviour
 
     public Blueprint AxeBLP = new Blueprint("Axe", 1 , 2 , "Stone", 3 , "Stick" , 3 );
     public Blueprint PlankBLP = new Blueprint("Plank", 2 , 1, "Log", 1, "", 0);
-    public Blueprint PickAxeBLP = new Blueprint("PickAxe", 1, 2, "Iron", 3, "Plank", 3);
+    public Blueprint IronSwordBLP = new Blueprint("IronSword", 1, 2, "Iron", 3, "Plank", 3);
 
 
 
@@ -92,10 +92,10 @@ public class CraftingSystem : MonoBehaviour
         craftPlankBTN.onClick.AddListener(delegate { CraftAnyItem(PlankBLP); });
 
         //PickAxe
-        PickAxeReq1 = toolsScreenUI.transform.Find("PickAxe").transform.Find("req1").GetComponent<Text>();
-        PickAxeReq2 = toolsScreenUI.transform.Find("PickAxe").transform.Find("req2").GetComponent<Text>();
-        craftPickAxeBTN = toolsScreenUI.transform.Find("PickAxe").transform.Find("Button").GetComponent<Button>();
-        craftPickAxeBTN.onClick.AddListener(delegate { CraftAnyItem(PickAxeBLP); });
+        IronSwordReq1 = toolsScreenUI.transform.Find("IronSword").transform.Find("req1").GetComponent<Text>();
+        IronSwordReq2 = toolsScreenUI.transform.Find("IronSword").transform.Find("req2").GetComponent<Text>();
+        craftIronSwordBTN = toolsScreenUI.transform.Find("IronSword").transform.Find("Button").GetComponent<Button>();
+        craftIronSwordBTN.onClick.AddListener(delegate { CraftAnyItem(IronSwordBLP); });
 
     }
     void OpenToolsCategory()
@@ -294,16 +294,16 @@ public class CraftingSystem : MonoBehaviour
         }
 
         // ----FOR THE PICK AXE ----
-        PickAxeReq1.text = "3 Iron[" + iron_count + "]";
-        PickAxeReq2.text = "3 Plank[" + plank_count + "]";
+        IronSwordReq1.text = "3 Iron[" + iron_count + "]";
+        IronSwordReq2.text = "3 Plank[" + plank_count + "]";
         if (iron_count >= 3 && plank_count >= 3 && InventorySystem.Instance.CheckSlotsAvailable(1))
         {
-            craftPickAxeBTN.gameObject.SetActive(true);
+            craftIronSwordBTN.gameObject.SetActive(true);
         }
         else
         {
 
-            craftPickAxeBTN.gameObject.SetActive(false);
+            craftIronSwordBTN.gameObject.SetActive(false);
 
         }
     }
