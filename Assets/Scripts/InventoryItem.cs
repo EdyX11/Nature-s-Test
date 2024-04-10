@@ -22,19 +22,19 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     // --- Consumption --- //
     [Header("Consumable")]
-    [SerializeField] private GameObject itemPendingConsumption;
+    private GameObject itemPendingConsumption;
     [SerializeField] public bool isConsumable;
 
     [Header("Effects")]
-    [SerializeField] public float healthEffect;
-    [SerializeField] public float caloriesEffect;
-    [SerializeField] public float hydrationEffect;
+     public float healthEffect;
+     public float caloriesEffect;
+     public float hydrationEffect;
 
 
     // --- Equipping in quick slot --- 
     [Header("Equippable Conditions")]
     [SerializeField] public bool isEquippable;
-    [SerializeField] private GameObject itemPendingEquipping;
+     private GameObject itemPendingEquipping;
     [SerializeField] public bool isInsideQuickSlot;
     [SerializeField] public bool isSelected;
 
