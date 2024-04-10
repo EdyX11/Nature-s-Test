@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class Blueprint 
 {
-    public string itemName;
 
-    public string Req1;
-    public string Req2;
+    [Header("Item Name")]
+    [SerializeField] public string itemName;
 
-    public int Req1amount;
-    public int Req2amount;
+    [Header("Requirements")]
+    [SerializeField] public string Req1;
+    [SerializeField] public string Req2;
+    [SerializeField] public int Req1amount;
+    [SerializeField] public int Req2amount;
+    [SerializeField] public int numOfRequirements;
+    [SerializeField] public int numberOfItemsToProduce;
 
-    public int numOfRequirements;
-    public int numberOfItemsToProduce;
+
     public Blueprint(string name, int producedItems, int reqNUM, string R1, int R1num, string R2, int R2num ) // constructor
     {
         itemName = name;
