@@ -7,32 +7,36 @@ using UnityEngine.UI;
 public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
     // --- Is this item trashable --- //
-    public bool isTrashable;
+    [Header("Trash Condition")]
+    [SerializeField] public bool isTrashable;
 
     // --- Item Info UI --- //
-    private GameObject itemInfoUI;
+    [Header("PopUP_UI")]
+     private GameObject itemInfoUI;
 
-    private Text itemInfoUI_itemName;
-    private Text itemInfoUI_itemDescription;
-    private Text itemInfoUI_itemFunctionality;
+     private Text itemInfoUI_itemName;
+     private Text itemInfoUI_itemDescription;
+     private Text itemInfoUI_itemFunctionality;
 
     public string thisName, thisDescription, thisFunctionality;
 
     // --- Consumption --- //
-    private GameObject itemPendingConsumption;
-    public bool isConsumable;
+    [Header("Consumable")]
+    [SerializeField] private GameObject itemPendingConsumption;
+    [SerializeField] public bool isConsumable;
 
-    public float healthEffect;
-    public float caloriesEffect;
-    public float hydrationEffect;
+    [Header("Effects")]
+    [SerializeField] public float healthEffect;
+    [SerializeField] public float caloriesEffect;
+    [SerializeField] public float hydrationEffect;
 
 
     // --- Equipping in quick slot --- 
-
-    public bool isEquippable;
-    private GameObject itemPendingEquipping;
-    public bool isInsideQuickSlot;
-    public bool isSelected;
+    [Header("Equippable Conditions")]
+    [SerializeField] public bool isEquippable;
+    [SerializeField] private GameObject itemPendingEquipping;
+    [SerializeField] public bool isInsideQuickSlot;
+    [SerializeField] public bool isSelected;
 
 
     private void Start()

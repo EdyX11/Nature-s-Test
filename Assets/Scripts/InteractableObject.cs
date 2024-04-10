@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class InteractableObject : MonoBehaviour
 {
-    public bool playerInRange;
 
-
-    public string ItemName;
+    [Header("Conditions")]
+    [SerializeField] public bool playerInRange;
+    [SerializeField] public string ItemName;
 
     public string GetItemName() { 
         
@@ -15,27 +15,29 @@ public class InteractableObject : MonoBehaviour
     
     }
 
-     void Update()
+    void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.Mouse0) && playerInRange && SelectionManager.Instance.onTarget && SelectionManager.Instance.selectedObject == gameObject)
         {
-            //if invetory is not full , we add , else alert is full
-            if (InventorySystem.Instance.CheckSlotsAvailable(1))
-            {
-                InventorySystem.Instance.AddToInventory(ItemName);
-                Debug.Log("Item added to inventory");
-                Destroy(gameObject);
-            }
-            else
-            {
-                Debug.Log("Inventory is full");
-            }
-
+            HandleItemInteraction();
         }
-            
-
     }
+
+
+    private void HandleItemInteraction()
+    {
+        if (InventorySystem.Instance.CheckSlotsAvailable(1))
+        {
+            InventorySystem.Instance.AddToInventory(ItemName);
+            Debug.Log("Item added to inventory");
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.Log("Inventory is full");
+        }
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {

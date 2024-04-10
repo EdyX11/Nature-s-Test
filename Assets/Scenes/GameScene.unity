@@ -2294,7 +2294,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d6ce4b1b300b8bb46bcf2bc916968960, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d31aa8412a4d374458c912d11686642a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10410,7 +10410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &518013082
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10972,6 +10972,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthCounter: {fileID: 1397573365}
   playerState: {fileID: 1332149369}
+  currentHealth: 0
+  maxHealth: 0
 --- !u!1 &548096233
 GameObject:
   m_ObjectHideFlags: 0
@@ -11076,6 +11078,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hydrationCounter: {fileID: 164885912}
   playerState: {fileID: 1332149369}
+  currentHydration: 0
+  maxHydration: 0
 --- !u!1001 &554483511
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21623,6 +21627,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   caloriesCounter: {fileID: 1780790169}
   playerState: {fileID: 1332149369}
+  currentCalories: 0
+  maxCalories: 0
 --- !u!1001 &1251350817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24403,8 +24409,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 20.9773}
-  m_SizeDelta: {x: 92.926, y: 27.6446}
+  m_AnchoredPosition: {x: 0, y: 17.4}
+  m_SizeDelta: {x: 92.926, y: 34.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1434577836
 MonoBehaviour:
@@ -24428,10 +24434,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: d7cef758c3e64ca4e95f803895346cc9, type: 3}
-    m_FontSize: 20
+    m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -24439,7 +24445,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Sword
+  m_Text: Iron Sword
 --- !u!222 &1434577837
 CanvasRenderer:
   m_ObjectHideFlags: 0

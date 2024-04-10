@@ -12,8 +12,8 @@ public class HealthBar : MonoBehaviour
 
     public GameObject playerState;
 
-
-    private float currentHealth, maxHealth;
+    [Header("HEALTH")]
+    [SerializeField] private float currentHealth, maxHealth;
 
 
 

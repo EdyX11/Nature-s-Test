@@ -10,18 +10,18 @@ public class CaloriesBar : MonoBehaviour
 
     public GameObject playerState;
 
+    [Header("Calories")]
+    [SerializeField] private float currentCalories, maxCalories;
 
-    private float currentCalories, maxCalories;
 
 
-
-    void Awake()
+   private void Awake()
     {
         slider = GetComponent<Slider>();
     }
 
 
-    void Update()
+    private void Update()
     {
         currentCalories = playerState.GetComponent<PlayerState>().currentCalories;
         maxCalories = playerState.GetComponent<PlayerState>().maxCalories;

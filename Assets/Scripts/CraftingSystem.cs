@@ -7,12 +7,13 @@ using TMPro;
 public class CraftingSystem : MonoBehaviour
 {
     public static CraftingSystem Instance { get; set; }
+    [Header("USER INTERFACE")]
+    [SerializeField] public GameObject craftingScreenUI;
+    [SerializeField] public GameObject toolsScreenUI,survivalScreenUI,refineScreenUI;
 
-    public GameObject craftingScreenUI;
-    public GameObject toolsScreenUI,survivalScreenUI,refineScreenUI;
-
+    [Header("ITEM LIST")]
     public List<string> inventoryItemList = new List<string>();
-
+    [SerializeField] public bool isOpen;
     // category buttons : tools etc 
     Button toolsBTN,survivalBTN,refineBTN;
 
@@ -26,9 +27,9 @@ public class CraftingSystem : MonoBehaviour
 
     Text PickAxeReq1;
     Text PickAxeReq2;
-    
 
-    public bool isOpen;
+
+    
 
     //All Blueprints
 

@@ -5,9 +5,9 @@ using UnityEngine;
 public class GlobalState : MonoBehaviour
 {
     public static GlobalState Instance { get; private set; }
-
-    public float resourceHealth;
-    public float resourceMaxHealth;
+    [Header("Resource Status")]
+    [SerializeField] public float resourceHealth;
+    [SerializeField] public float resourceMaxHealth;
 
     private void Awake()
     {
