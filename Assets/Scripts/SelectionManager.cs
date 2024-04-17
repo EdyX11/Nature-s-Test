@@ -74,6 +74,7 @@ public class SelectionManager : MonoBehaviour
         {
             HandleChoppableTreeInteraction(hit);
             HandleInteractableObjectInteraction(hit);
+            HandleInteractableNPCInteraction(hit);
         }
         else
         {
@@ -135,6 +136,46 @@ public class SelectionManager : MonoBehaviour
                 chopHolder.gameObject.SetActive(false);
             }
         }
+    }
+    private void HandleInteractableNPCInteraction(RaycastHit hit)
+    {
+        NPCDialog npc = hit.transform.GetComponent<NPCDialog>();
+        if (npc != null)
+        {
+            if (npc.playerInRange)
+            {
+                ShowNPCInteractionUI(npc);
+                CheckForNPCInteraction(npc);
+            }
+            else
+            {
+                ClearInteractionUI();
+            }
+        }
+        else
+        {
+            ClearInteractionUI();
+        }
+    }
+
+    private void ShowNPCInteractionUI(NPCDialog npc)
+    {
+        interaction_text.text = "Talk";
+        interaction_Info_UI.SetActive(true);
+    }
+
+    private void CheckForNPCInteraction(NPCDialog npc)
+    {
+        if (Input.GetMouseButtonDown(0) && !npc.isTalkingWithPlayer)
+        {
+            npc.OpenChat();
+        }
+    }
+
+    private void ClearInteractionUI()
+    {
+        interaction_text.text = "";
+        interaction_Info_UI.SetActive(false);
     }
 
 
