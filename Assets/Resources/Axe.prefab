@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 759829640440763079}
   - component: {fileID: -8246290812959872807}
   - component: {fileID: 9210173121788897338}
+  - component: {fileID: -1456761347092598128}
   m_Layer: 5
   m_Name: Axe
   m_TagString: Untagged
@@ -125,3 +126,16 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &-1456761347092598128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8885632329969347210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 895241ad3585b094e8d94bdca82410bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponDamage: 20

@@ -75,6 +75,7 @@ public class SelectionManager : MonoBehaviour
             HandleChoppableTreeInteraction(hit);
             HandleInteractableObjectInteraction(hit);
             HandleInteractableNPCInteraction(hit);
+            HandleAnimalInteraction(hit);
         }
         else
         {
@@ -158,6 +159,8 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
+
+
     private void ShowNPCInteractionUI(NPCDialog npc)
     {
         interaction_text.text = "Talk";
@@ -178,7 +181,28 @@ public class SelectionManager : MonoBehaviour
         interaction_Info_UI.SetActive(false);
     }
 
+    private void HandleAnimalInteraction(RaycastHit hit)
+    {
+        Animal animal = hit.transform.GetComponent<Animal>();
+        if (animal && animal.playerInRange)
+        {
+            interaction_text.text = animal.animalName;
+            interaction_Info_UI.SetActive(true);
 
+
+            if(Input.GetMouseButtonDown(0) && EquipSystem.Instance.IsHoldingWeapon())
+            {
+
+
+                StartCoroutine(DealDamageTo(animal, 0.3f, EquipSystem.Instance.GetWeaponDamage()));
+            }
+        }
+        else
+        {
+            interaction_text.text = "";
+            interaction_Info_UI.SetActive(false);
+        }
+    }
     public void DisableSelection()
     {
         handIcon.enabled = false;
@@ -197,5 +221,13 @@ public class SelectionManager : MonoBehaviour
 
 
     }
+
+    IEnumerator DealDamageTo(Animal animal , float delay, int damage)
+    {
+
+        yield return new WaitForSeconds(delay);
+        animal.TakeDamage(damage); 
+    }
+
 
 }

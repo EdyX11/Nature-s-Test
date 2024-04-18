@@ -183,7 +183,7 @@ public class FirstPersonController : MonoBehaviour
         characterController.Move(moveDirection * Time.deltaTime);
 
         Vector3 afterMovePosition = characterController.transform.position;
-        Debug.Log($"Before Move: {beforeMovePosition}, After Move: {afterMovePosition}");
+       // Debug.Log($"Before Move: {beforeMovePosition}, After Move: {afterMovePosition}");
     }
 
 
