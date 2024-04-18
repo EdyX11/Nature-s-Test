@@ -140,38 +140,24 @@ public class SelectionManager : MonoBehaviour
     }
     private void HandleInteractableNPCInteraction(RaycastHit hit)
     {
+        // Attempt to get the NPCDialog component from the hit object
         NPCDialog npc = hit.transform.GetComponent<NPCDialog>();
-        if (npc != null)
+
+        // Check if the hit object is an NPC and if the player is within interaction range
+        if (npc && npc.playerInRange)
         {
-            if (npc.playerInRange)
+            interaction_text.text = "Talk"; // Set the interaction text
+            interaction_Info_UI.SetActive(true); // Show interaction UI
+
+            // Check if the left mouse button is clicked and the NPC is not already talking
+            if (Input.GetMouseButtonDown(0) && !npc.isTalkingWithPlayer)
             {
-                ShowNPCInteractionUI(npc);
-                CheckForNPCInteraction(npc);
-            }
-            else
-            {
-                ClearInteractionUI();
+                npc.OpenChat(); // Open chat with the NPC
             }
         }
         else
         {
-            ClearInteractionUI();
-        }
-    }
-
-
-
-    private void ShowNPCInteractionUI(NPCDialog npc)
-    {
-        interaction_text.text = "Talk";
-        interaction_Info_UI.SetActive(true);
-    }
-
-    private void CheckForNPCInteraction(NPCDialog npc)
-    {
-        if (Input.GetMouseButtonDown(0) && !npc.isTalkingWithPlayer)
-        {
-            npc.OpenChat();
+            ClearInteractionUI(); // Clear the interaction UI if not interacting with an NPC
         }
     }
 
