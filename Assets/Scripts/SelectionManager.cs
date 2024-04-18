@@ -144,16 +144,14 @@ public class SelectionManager : MonoBehaviour
         NPCDialog npc = hit.transform.GetComponent<NPCDialog>();
 
         // Check if the hit object is an NPC and if the player is within interaction range
-        if (npc && npc.playerInRange)
+        if (npc && npc.playerInRange && npc.isTalkingWithPlayer )
         {
-            interaction_text.text = "Talk"; // Set the interaction text
-            interaction_Info_UI.SetActive(true); // Show interaction UI
-
+            onTarget = false;
+            interaction_Info_UI.SetActive(false);
+            handIcon.gameObject.SetActive(false);
+            centerDotImage.gameObject.SetActive(true);
+            handIsVisible = false;
             // Check if the left mouse button is clicked and the NPC is not already talking
-            if (Input.GetMouseButtonDown(0) && !npc.isTalkingWithPlayer)
-            {
-                npc.OpenChat(); // Open chat with the NPC
-            }
         }
         else
         {

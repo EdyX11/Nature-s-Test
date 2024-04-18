@@ -19,6 +19,7 @@ public class NPCDialog : MonoBehaviour
         // Trigger chat possibility when the player enters the interaction range
         if (other.CompareTag("Player"))
         {
+            isTalkingWithPlayer = true;
             playerInRange = true;
             toActivate.SetActive(true); 
 
