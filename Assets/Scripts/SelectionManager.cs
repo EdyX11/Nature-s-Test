@@ -168,17 +168,17 @@ public class SelectionManager : MonoBehaviour
     private void HandleAnimalInteraction(RaycastHit hit)
     {
         Animal animal = hit.transform.GetComponent<Animal>();
-        if (animal && animal.playerInRange)
+        if (animal != null)
         {
             interaction_text.text = animal.animalName;
             interaction_Info_UI.SetActive(true);
 
-
-            if(Input.GetMouseButtonDown(0) && EquipSystem.Instance.IsHoldingWeapon())
+            if (animal.playerInRange && Input.GetMouseButtonDown(0) && EquipSystem.Instance.IsHoldingWeapon())
             {
-
-
-                StartCoroutine(DealDamageTo(animal, 0.3f, EquipSystem.Instance.GetWeaponDamage()));
+                if (!animal.IsAlreadyBeingAttacked)  // Assuming you add this flag to manage state.
+                {
+                    StartCoroutine(DealDamageTo(animal, 0.3f, EquipSystem.Instance.GetWeaponDamage()));
+                }
             }
         }
         else
@@ -187,6 +187,20 @@ public class SelectionManager : MonoBehaviour
             interaction_Info_UI.SetActive(false);
         }
     }
+
+    IEnumerator DealDamageTo(Animal animal, float delay, int damage)
+    {
+        animal.IsAlreadyBeingAttacked = true; // Lock to prevent re-entrancy.
+        yield return new WaitForSeconds(delay);
+
+        if (animal != null && animal.playerInRange && !animal.isDead)
+        {
+            animal.TakeDamage(damage);
+        }
+
+        animal.IsAlreadyBeingAttacked = false; // Unlock after operation.
+    }
+
     public void DisableSelection()
     {
         handIcon.enabled = false;
@@ -204,13 +218,6 @@ public class SelectionManager : MonoBehaviour
         interaction_Info_UI.SetActive(true);
 
 
-    }
-
-    IEnumerator DealDamageTo(Animal animal , float delay, int damage)
-    {
-
-        yield return new WaitForSeconds(delay);
-        animal.TakeDamage(damage); 
     }
 
 
