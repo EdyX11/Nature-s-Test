@@ -7,6 +7,8 @@ public class Animal : MonoBehaviour
     public string animalName;
     public bool playerInRange;
     public bool IsAlreadyBeingAttacked;
+    private bool isHitRecovering = false;  // Flag to indicate hit recovery
+    private float hitCooldown = 2.0f;
     [SerializeField] int currentHealth;
     [SerializeField] int maxHealth;
 
@@ -36,22 +38,24 @@ public class Animal : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    
+
     public void TakeDamage(int damage)
     {
         Debug.Log($"{animalName} took damage: {damage}. Current Health: {currentHealth}");
 
-        if (isDead)
+        if (isDead || isHitRecovering)
         {
-            Debug.Log("No further damage as already dead.");
-            return; // Exit if already dead to avoid any processing
+            Debug.Log("No further damage as already dead or recovering from a hit.");
+            return; // Exit if already dead or recovering
         }
 
         currentHealth -= damage;
-       //bloodSplashParticles.Play();
+        //bloodSplashParticles.Play();
 
         if (currentHealth <= 0)
         {
-            if (!isDead) // Additional safeguard
+            if (!isDead)
             {
                 Debug.Log("Animal is dying now.");
                 isDead = true;
@@ -63,27 +67,36 @@ public class Animal : MonoBehaviour
                 Rigidbody rb = GetComponent<Rigidbody>();
                 if (rb != null)
                 {
-                    rb.velocity = Vector3.zero; // Ensure no ongoing movement
-                    rb.isKinematic = true; // Stop responding to physics
+                    rb.velocity = Vector3.zero;
+                    rb.isKinematic = true;
                 }
                 StartCoroutine(PuddleDelay());
             }
         }
         else
         {
-            if (thisAnimalType == AnimalType.Bear) // Check animal type before triggering hit animation
+            if (thisAnimalType == AnimalType.Bear)
             {
-                animator.SetTrigger("HitTrigger");  // Trigger the "being hit" animation only for the bear
+                animator.SetTrigger("HitTrigger");
+                isHitRecovering = true;
+                StartCoroutine(ResetHitRecovery());
             }
-            PlayHitSound(); // Play hit sound if applicable
+            PlayHitSound();
         }
     }
+
+    IEnumerator ResetHitRecovery()
+    {
+        yield return new WaitForSeconds(hitCooldown);  // Wait for the cooldown period
+        isHitRecovering = false;  // Reset hit recovery state
+    }
+
 
 
 
     IEnumerator PuddleDelay()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         bloodPuddle.SetActive(true);
     }
 
