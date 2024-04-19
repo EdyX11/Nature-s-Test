@@ -25,7 +25,7 @@ public class Animal : MonoBehaviour
     {
 
         Rabbit,
-        Lion,
+        Bear,
         
     }
 
@@ -87,7 +87,7 @@ public class Animal : MonoBehaviour
             case AnimalType.Rabbit:
                 soundChannel.PlayOneShot(rabbitDie);
                 break;
-            case AnimalType.Lion :
+            case AnimalType.Bear :
                // soundChannel.PlayOneShot(rabbitDie);
                 break;  
           
@@ -108,7 +108,7 @@ public class Animal : MonoBehaviour
             case AnimalType.Rabbit:
                 soundChannel.PlayOneShot(rabbitHit); ;
                 break;
-            case AnimalType.Lion:
+            case AnimalType.Bear:
                 // soundChannel.PlayOneShot(rabbitDie);
                 break;
 
