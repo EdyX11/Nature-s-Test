@@ -140,30 +140,43 @@ public class SelectionManager : MonoBehaviour
     }
     private void HandleInteractableNPCInteraction(RaycastHit hit)
     {
-        // Attempt to get the NPCDialog component from the hit object
         NPCDialog npc = hit.transform.GetComponent<NPCDialog>();
 
-        // Check if the hit object is an NPC and if the player is within interaction range
-        if (npc && npc.playerInRange && npc.isTalkingWithPlayer )
+        if (npc && npc.playerInRange)
         {
-            onTarget = false;
-            interaction_Info_UI.SetActive(false);
-            handIcon.gameObject.SetActive(false);
-            centerDotImage.gameObject.SetActive(true);
-            handIsVisible = false;
-            // Check if the left mouse button is clicked and the NPC is not already talking
+            // Interaction logic can be minimized here since most actions are triggered by OnTriggerEnter
+            // Here, we just handle cursor visibility if necessary
+            ManageCursor(npc.isTalkingWithPlayer);
         }
         else
         {
-            ClearInteractionUI(); // Clear the interaction UI if not interacting with an NPC
+            // Optionally reset UI or other interactions if the player is not in range or interacting
+            ClearInteractionUI();
+        }
+    }
+
+    private void ManageCursor(bool isTalking)
+    {
+        if (isTalking)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            // Optional: Reset cursor if the NPC interaction ends and the chat closes
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 
     private void ClearInteractionUI()
     {
+        // Clears any interaction-related UI elements, if previously used
         interaction_text.text = "";
         interaction_Info_UI.SetActive(false);
     }
+
 
     private void HandleAnimalInteraction(RaycastHit hit)
     {
