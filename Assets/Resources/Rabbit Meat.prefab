@@ -103,12 +103,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTrashable: 1
-  thisName: Stick
-  thisDescription: Leftover stick from an earthquake.
-  thisFunctionality: Used for crafting.
-  isConsumable: 0
-  healthEffect: 0
-  caloriesEffect: 0
+  thisName: Rabbit Meat
+  thisDescription: Cut from killed rabbit.
+  thisFunctionality: Used for regaining strength.
+  isConsumable: 1
+  healthEffect: 20
+  caloriesEffect: 200
   hydrationEffect: 0
   isEquippable: 0
   isInsideQuickSlot: 0

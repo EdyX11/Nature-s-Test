@@ -237,10 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   possibleLoot:
-  - item: {fileID: 5798668019343146122, guid: e472bffc13a366f448c2286069797c42, type: 3}
-    amountMin: 0
-    amountMax: 3
-  - item: {fileID: 226837873226206846, guid: f664b4d0721342747b396f0b518f1916, type: 3}
+  - item: {fileID: 226837873226206846, guid: a65513889cabb784a98d64417613995b, type: 3}
     amountMin: 0
     amountMax: 2
   finalLoot: []

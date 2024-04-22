@@ -103,12 +103,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTrashable: 1
-  thisName: Stone
-  thisDescription: Almost sharp stone.
-  thisFunctionality: Used for crafting.
-  isConsumable: 0
-  healthEffect: 0
-  caloriesEffect: 0
+  thisName: Bear Meat.
+  thisDescription: Skinned from the great bears.
+  thisFunctionality: Used for gaining power back.
+  isConsumable: 1
+  healthEffect: 40
+  caloriesEffect: 300
   hydrationEffect: 0
   isEquippable: 0
   isInsideQuickSlot: 0
