@@ -13,7 +13,7 @@ public class DayNightSystem : MonoBehaviour
 
     public List<SkyboxTimeMapping> timeMappings;
 
-
+    float blendedValue = 0.0f;  
     // Update is called once per frame
     void Update()
     {
@@ -41,6 +41,24 @@ public class DayNightSystem : MonoBehaviour
             if (currentHour == mapping.hour)
             {
                 currentSkybox = mapping.skyboxMaterial;
+
+                if(currentSkybox.shader != null)
+                {
+                    if(currentSkybox.shader.name == "Custom/SkyboxTransition")
+                    {
+                        blendedValue += Time.deltaTime; // game time
+                        blendedValue = Mathf.Clamp01(blendedValue); //clamped between 0 and 1
+
+                        currentSkybox.SetFloat("_TransitionFactor", blendedValue);
+
+                    }
+                    else
+                    {
+                        blendedValue = 0;
+
+                    }
+                }
+
                 break;
 
             }
