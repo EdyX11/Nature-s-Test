@@ -72,6 +72,7 @@ public class SelectionManager : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
+            Debug.Log("Hit: " + hit.transform.name);  // Check what is being hit
             HandleChoppableTreeInteraction(hit);
             HandleInteractableObjectInteraction(hit);
             HandleInteractableNPCInteraction(hit);
@@ -79,46 +80,38 @@ public class SelectionManager : MonoBehaviour
         }
         else
         {
-            // Handle the scenario where no objects are hit
             onTarget = false;
             interaction_Info_UI.SetActive(false);
+            interaction_text.text = "";
             handIcon.gameObject.SetActive(false);
             centerDotImage.gameObject.SetActive(true);
-            handIsVisible = false;
         }
     }
+
     private void HandleInteractableObjectInteraction(RaycastHit hit)
     {
         InteractableObject interactable = hit.transform.GetComponent<InteractableObject>();
         if (interactable && interactable.playerInRange)
         {
+            Debug.Log("Interactable Object: " + interactable.GetItemName());  // Confirm item name is fetched
             onTarget = true;
             selectedObject = interactable.gameObject;
-            interaction_text.text = interactable.GetItemName();
-            interaction_Info_UI.SetActive(true);
 
-            if (interactable.CompareTag("pickable"))
-            {
-                centerDotImage.gameObject.SetActive(false);
-                handIcon.gameObject.SetActive(true);
-                handIsVisible = true;
-            }
-            else
-            {
-                handIcon.gameObject.SetActive(false);
-                centerDotImage.gameObject.SetActive(true);
-                handIsVisible = false;
-            }
+            interaction_Info_UI.SetActive(true);
+            interaction_text.text = interactable.GetItemName();
+
+            centerDotImage.gameObject.SetActive(true);
+            handIcon.gameObject.SetActive(true);
+            handIsVisible = true;
         }
         else
         {
-            onTarget = false;
-            interaction_Info_UI.SetActive(false);
-            handIcon.gameObject.SetActive(false);
-            centerDotImage.gameObject.SetActive(true);
+            Debug.Log("No interactable object or not in range");
             handIsVisible = false;
+            handIcon.gameObject.SetActive(false);
         }
     }
+
     private void HandleChoppableTreeInteraction(RaycastHit hit)
     {
         ChoppableTree choppableTree = hit.transform.GetComponent<ChoppableTree>();
@@ -161,6 +154,7 @@ public class SelectionManager : MonoBehaviour
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+
         }
         else
         {
@@ -181,24 +175,49 @@ public class SelectionManager : MonoBehaviour
     private void HandleAnimalInteraction(RaycastHit hit)
     {
         Animal animal = hit.transform.GetComponent<Animal>();
-        if (animal != null)
+        if (animal != null && animal.playerInRange)
         {
+            if (animal.isDead)
+            {
+                interaction_text.text = "Loot";
+
+                interaction_Info_UI.SetActive(true);
+
+                centerDotImage.gameObject.SetActive(false);
+                handIcon.gameObject.SetActive(true);
+
+                handIsVisible = true;
+
+
+                if (Input.GetMouseButtonDown(0))
+                {
+
+                   Lootable lootable = animal.GetComponent<Lootable>();
+                   Loot(lootable); // method pass var
+                }
+
+            }
+
+            else { 
             interaction_text.text = animal.animalName;
             interaction_Info_UI.SetActive(true);
 
-            if (animal.playerInRange && Input.GetMouseButtonDown(0) && EquipSystem.Instance.IsHoldingWeapon())
+            centerDotImage.gameObject.SetActive(true);
+            handIcon.gameObject.SetActive(false);
+
+            handIsVisible = false;
+             
+            }
+            if (Input.GetMouseButtonDown(0) && EquipSystem.Instance.IsHoldingWeapon())
             {
-                if (!animal.IsAlreadyBeingAttacked)  // Assuming you add this flag to manage state.
+                if (!animal.IsAlreadyBeingAttacked)  //state from Animal script
                 {
                     StartCoroutine(DealDamageTo(animal, 0.3f, EquipSystem.Instance.GetWeaponDamage()));
                 }
             }
         }
-        else
-        {
-            interaction_text.text = "";
-            interaction_Info_UI.SetActive(false);
-        }
+      
+       
     }
 
     IEnumerator DealDamageTo(Animal animal, float delay, int damage)
@@ -213,6 +232,67 @@ public class SelectionManager : MonoBehaviour
 
         animal.IsAlreadyBeingAttacked = false; // Unlock after operation.
     }
+
+    private void Loot(Lootable lootable) 
+    {
+        if (lootable.wasLootCalculated == false)
+        {
+            List<LootReceived> receivedLoot = new List<LootReceived>();// empty list
+
+            foreach (LootPossibility loot in lootable.possibleLoot)// loop over the posible loot
+            {
+                var lootAmount = UnityEngine.Random.Range(loot.amountMin, loot.amountMax+1);// rand no , exclusive max amount
+                if(lootAmount != 0)
+                {
+                    LootReceived lt = new LootReceived();
+
+                    lt.item = loot.item;
+                    lt.amount = lootAmount;
+
+                    receivedLoot.Add(lt);   
+
+
+                }
+
+            }
+
+
+            lootable.finalLoot = receivedLoot;
+            lootable.wasLootCalculated = true;
+
+
+        }
+        //spawn loot, same method as for wood
+        Vector3 lootSpawnPos = lootable.gameObject.transform.position; ;
+
+        foreach (LootReceived lootReceived in lootable.finalLoot)
+        {
+            for(int i = 0;i<lootReceived.amount; i++)
+            {
+
+                GameObject lootSpawn = Instantiate(Resources.Load<GameObject>(lootReceived.item.name + "_Model"),
+                    new Vector3(lootSpawnPos.x, lootSpawnPos.y + 0.2f, lootSpawnPos.z),
+                    Quaternion.Euler(0,0,0));
+            }
+
+        }
+        //can modify in order for the bloodpuddle to remain for some time
+        if (lootable.GetComponent<Animal>())
+        {
+
+            lootable.GetComponent<Animal>().bloodPuddle.transform.SetParent(lootable.transform.parent);
+           
+        }
+
+
+        //destroy looted body 
+        Destroy(lootable.gameObject);
+
+
+    
+    }
+
+   
 
     public void DisableSelection()
     {

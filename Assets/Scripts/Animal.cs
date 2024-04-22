@@ -23,7 +23,7 @@ public class Animal : MonoBehaviour
     public bool isDead;
 
    // [SerializeField] ParticleSystem bloodSplashParticles;
-    [SerializeField] GameObject bloodPuddle;
+    [SerializeField] public GameObject bloodPuddle;
     enum AnimalType
     {
         Rabbit,
@@ -98,6 +98,9 @@ public class Animal : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         bloodPuddle.SetActive(true);
+        yield return new WaitForSeconds(20f);
+        bloodPuddle.SetActive(false);
+
     }
 
     private void PlayDyingSound()
