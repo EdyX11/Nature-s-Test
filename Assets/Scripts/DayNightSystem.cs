@@ -1,19 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class DayNightSystem : MonoBehaviour
 {
     public Light directionalLight;
 
     public float dayDurationInSeconds = 24.0f; // duration of a full day
     public int currentHour;
-    float currentTimeOfDay = 0.0f;
+    float currentTimeOfDay = 0.35f; // 8 morning
 
 
     public List<SkyboxTimeMapping> timeMappings;
 
-    float blendedValue = 0.0f;  
+    float blendedValue = 0.0f;
+
+    bool lockNextDayTrigger = false;
+
+    public TextMeshProUGUI timeUI;
+   
     // Update is called once per frame
     void Update()
     {
@@ -22,7 +27,8 @@ public class DayNightSystem : MonoBehaviour
         currentTimeOfDay %= 1; // stays between 0 and 1
 
         currentHour = Mathf.FloorToInt(currentTimeOfDay * 24);
-
+        timeUI.text = $"{currentHour}:00";
+       
         // update directional light
         directionalLight.transform.rotation = Quaternion.Euler(new Vector3((currentTimeOfDay * 360) - 90, 170, 0));
 
@@ -41,7 +47,7 @@ public class DayNightSystem : MonoBehaviour
             if (currentHour == mapping.hour)
             {
                 currentSkybox = mapping.skyboxMaterial;
-
+                //blend transitions
                 if(currentSkybox.shader != null)
                 {
                     if(currentSkybox.shader.name == "Custom/SkyboxTransition")
@@ -64,6 +70,23 @@ public class DayNightSystem : MonoBehaviour
             }
 
         }
+        
+        //count day number, use lock so its runs just once when it hits hour 0 and not every frame
+
+        if(currentHour == 0 && lockNextDayTrigger == false)
+        {
+
+            TimeManager.Instance.TriggerNextDay();
+            lockNextDayTrigger = true;
+        }
+
+        if(currentHour != 0 )
+        {
+
+            lockNextDayTrigger = false;
+        }
+
+
         if (currentSkybox != null)
         {
 
