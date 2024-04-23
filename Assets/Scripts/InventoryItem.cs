@@ -81,44 +81,48 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     // Triggered when the mouse is clicked over the item that has this script.
     public void OnPointerDown(PointerEventData eventData)
     {
-        //Right Mouse Button Click on
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if (isConsumable)
-            {
-                // Setting this specific gameobject to be the item we want to destroy later
-                itemPendingConsumption = gameObject;
-                consumingFunction(healthEffect, caloriesEffect, hydrationEffect);
-            }
-            if (isEquippable && isInsideQuickSlot == false && EquipSystem.Instance.CheckIfFull() == false)
-            {
-               
-                //itemPendingEquipping = gameObject;
-                EquipSystem.Instance.AddToQuickSlots(gameObject);
-                isInsideQuickSlot = true;
-                Debug.Log("we are cheeking is item is quippable and if its not in quickslots already , also if the check for quickslot is full is false we add item to quick slot");
-
-
-            }
-
+            HandleRightClick();
         }
-       
-
-
     }
+
+    private void HandleRightClick()
+    {
+        if (isConsumable)
+        {
+            ConsumeItem();
+        }
+        else if (isEquippable && !isInsideQuickSlot && !EquipSystem.Instance.CheckIfFull())
+        {
+            EquipItem();
+        }
+    }
+
+    private void ConsumeItem()
+    {
+        itemPendingConsumption = gameObject;
+        consumingFunction(healthEffect, caloriesEffect, hydrationEffect);
+    }
+
+    private void EquipItem()
+    {
+        EquipSystem.Instance.AddToQuickSlots(gameObject);
+        isInsideQuickSlot = true;
+        Debug.Log("Item equipped to quickslot.");
+    }
+
     // Triggered when the mouse button is released over the item that has this script.
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right)
+        if (eventData.button == PointerEventData.InputButton.Right && isConsumable && itemPendingConsumption == gameObject)
         {
-            if (isConsumable && itemPendingConsumption == gameObject)
-            {
-                DestroyImmediate(gameObject);
-                InventorySystem.Instance.ReCalculateList();
-                CraftingSystem.Instance.RefreshNeededItems();
-            }
+            Destroy(gameObject);
+            InventorySystem.Instance.ReCalculateList();
+            CraftingSystem.Instance.RefreshNeededItems();
         }
     }
+
 
     private void consumingFunction(float healthEffect, float caloriesEffect, float hydrationEffect)
     {

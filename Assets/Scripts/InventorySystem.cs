@@ -73,38 +73,32 @@ public class InventorySystem : MonoBehaviour
 
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.I) && !isOpen)
+        if (Input.GetKeyDown(KeyCode.I))
         {
-
-            Debug.Log("I is pressed");
-            inventoryScreenUI.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-
-            Cursor.visible = true;
-
-            SelectionManager.Instance.DisableSelection();
-            SelectionManager.Instance.GetComponent<SelectionManager>().enabled = false; 
-            isOpen = true;
-
-        }
-        else if (Input.GetKeyDown(KeyCode.I) && isOpen)
-        {
-            inventoryScreenUI.SetActive(false);
-
-            if (!CraftingSystem.Instance.isOpen)
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-
-                SelectionManager.Instance.EnableSelection();
-                SelectionManager.Instance.GetComponent<SelectionManager>().enabled = true;
-            }
-
-
-            isOpen = false;
+            ToggleInventory();
         }
     }
+
+    private void ToggleInventory()
+    {
+        isOpen = !isOpen;
+        inventoryScreenUI.SetActive(isOpen);
+        Cursor.visible = isOpen;
+        Cursor.lockState = isOpen ? CursorLockMode.None : CursorLockMode.Locked;
+
+        // Handling component enabling based on inventory state
+        if (isOpen)
+        {
+            SelectionManager.Instance.DisableSelection();
+            SelectionManager.Instance.enabled = false;
+        }
+        else if (!CraftingSystem.Instance.isOpen)
+        {
+            SelectionManager.Instance.EnableSelection();
+            SelectionManager.Instance.enabled = true;
+        }
+    }
+
 
     public void AddToInventory(string itemName)
     {

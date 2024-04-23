@@ -44,52 +44,25 @@ public class EquipSystem : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        int slotNumber = -1;
+        if (Input.anyKeyDown)
         {
-            SelectQuickSlot(1);
+            for (int i = 0; i < quickSlotsList.Count; i++)
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+                {
+                    slotNumber = i + 1;
+                    break;
+                }
+            }
+
+            if (slotNumber != -1)
+            {
+                SelectQuickSlot(slotNumber);
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-
-            SelectQuickSlot(2);
-
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-
-            SelectQuickSlot(3);
-
-        }
-
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-
-            SelectQuickSlot(4);
-
-        }
-
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            SelectQuickSlot(5);
-
-
-        }
-
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-
-            SelectQuickSlot(6);
-
-        }
-
-        else if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-
-            SelectQuickSlot(7);
-
-        }
-
     }
+
 
     void SelectQuickSlot(int number)
     {
