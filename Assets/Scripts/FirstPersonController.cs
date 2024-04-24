@@ -121,7 +121,7 @@ public class FirstPersonController : MonoBehaviour
         _animator.SetFloat("Horizontal", horizontalAxis);
 
         // Update the IsSprinting parameter in the animator based on the IsSprinting variable
-        _animator.SetBool("IsSprinting", IsSprinting);
+        //_animator.SetBool("IsSprinting", IsSprinting);
     }
 
     private void HandleMouseLook()
