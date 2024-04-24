@@ -77,6 +77,6 @@ public class TimeManager : MonoBehaviour
     private void UpdateUI()
     {
 
-        dayUI.text = $"Day:  {dayInGame}, {currentSeason}";
+        dayUI.text = $"Day:  {dayInGame}";
     }
 }
