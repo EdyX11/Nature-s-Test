@@ -20,7 +20,7 @@ public class CameraShake : MonoBehaviour
          [SerializeField] private AudioClip earthquakeSound;
          [SerializeField] private bool isPlaying;
 
-
+    public GameObject vulcanoActivate;
 
     private void Start()
         {
@@ -66,6 +66,7 @@ public class CameraShake : MonoBehaviour
                 {
                     StartEarthQuake();
                     shakeCoroutine = StartCoroutine(ShakeCamera());
+                    vulcanoActivate.SetActive(true);
                 }
             }
             else
