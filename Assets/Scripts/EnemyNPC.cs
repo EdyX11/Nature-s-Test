@@ -69,24 +69,19 @@ public class EnemyNPC : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        if(navAgent.velocity.magnitude > 0.1f)// moving start =>start walk
-        
-        
-        {
-
-            animator.SetBool("isWalking",true);
    
-        }
-        else
-        {
-            animator.SetBool("isWalking", false);
-        }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 2.5f); // attacking and stop attacking
 
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, 18f); // detection (start chasing)
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, 21f); // stop chasing
 
     }
-
 
     private void OnTriggerEnter(Collider other)
     {
