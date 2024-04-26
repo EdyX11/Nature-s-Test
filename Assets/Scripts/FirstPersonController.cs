@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FirstPersonController : MonoBehaviour
 {
+
+    
     public bool CanMove { get; private set; } = true;
     private bool IsSprinting => canSprint && Input.GetKey(sprintKey);
     private bool ShouldJump => Input.GetKeyDown(jumpKey) && onGround;

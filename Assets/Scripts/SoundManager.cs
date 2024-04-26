@@ -7,7 +7,7 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance { get; set; }
 
 
-    //sound effectss
+    [Header("Sound Effects")]
     public AudioSource dropItemSound;
     public AudioSource craftingSound;
     public AudioSource toolSwingSound;
@@ -17,6 +17,18 @@ public class SoundManager : MonoBehaviour
 
     //Music
     //public AudioSource ... 
+
+
+    [Header("Zombie Sound")]
+
+    public AudioClip zombieWalking;
+    public AudioClip zombieChase;
+    public AudioClip zombieAttack;
+    public AudioClip zombieHurt;
+    public AudioClip zombieDeath;
+    public AudioSource zombieChannel;
+    public AudioSource zombieChannel2;
+
 
     private void Awake()
     {

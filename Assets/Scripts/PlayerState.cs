@@ -171,10 +171,11 @@ public class PlayerState : MonoBehaviour
         currentHealth = 0;
         print("player dead");
         //go to main menu 
+        // game over
+        //dying animation
 
     }
    
-
 
 
 }

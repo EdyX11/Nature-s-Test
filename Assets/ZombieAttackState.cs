@@ -21,6 +21,13 @@ public class ZombieAttackState : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+
+        if (SoundManager.Instance.zombieChannel.isPlaying == false)
+        {
+
+            SoundManager.Instance.zombieChannel.PlayOneShot(SoundManager.Instance.zombieAttack);
+           
+        }
         LookAtPlayer();
 
         // check if agent should stop attacking
@@ -36,13 +43,16 @@ public class ZombieAttackState : StateMachineBehaviour
         }
     }
 
-   
 
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
 
+        SoundManager.Instance.zombieChannel.Stop();
+
     }
+
+    
+ 
 
 
 

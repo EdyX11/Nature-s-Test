@@ -36,14 +36,22 @@ public class EnemyNPC : MonoBehaviour
     
     public void TakeDamage(int damageAmount)
     {
+        Debug.Log($"{enemyName} took damage: {damageAmount}. Current Health: {HP}");
 
-        HP-=damageAmount;
+        if (isDead || isHitRecovering)
+        {
+            Debug.Log("No further damage as already dead or recovering from a hit.");
+            return; // Exit if already dead or recovering
+        }
+
+        HP -=damageAmount;
 
         if (HP <= 0)
         {
             if (!isDead)
             {
-                isDead = true;
+                
+                Debug.Log("Zombie is dying now.");
                 int randomValue = Random.Range(0, 2); // 0 or 1
                 if (randomValue == 0)
                 {
@@ -55,17 +63,32 @@ public class EnemyNPC : MonoBehaviour
 
                     animator.SetTrigger("DIE2");
                 }
+                isDead = true;
+
+                //dead sound
+                SoundManager.Instance.zombieChannel.PlayOneShot(SoundManager.Instance.zombieDeath);
             }
         }
         else
         {
 
             animator.SetTrigger("DAMAGE");
+            //hurt sound
+            SoundManager.Instance.zombieChannel2.PlayOneShot(SoundManager.Instance.zombieHurt);
+            isHitRecovering = true;
+
+            StartCoroutine(ResetHitRecovery());
+
         }
 
     }
+    IEnumerator ResetHitRecovery()
+    {
+        yield return new WaitForSeconds(hitCooldown);  // Wait for the cooldown period
+        isHitRecovering = false;  // Reset hit recovery state
+    }
 
-   
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

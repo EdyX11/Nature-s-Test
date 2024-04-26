@@ -9,6 +9,10 @@ public class GlobalState : MonoBehaviour
     public float resourceHealth;
     public float resourceMaxHealth;
 
+
+   // public GameObject bloodSprayEffect;
+
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
