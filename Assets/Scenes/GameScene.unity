@@ -87118,7 +87118,7 @@ Animator:
   m_GameObject: {fileID: 9076430007004389942}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 47ab32285b245c445aaa5057621412ba, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bc11b72715976674ab0157cd4dacfaa6, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -89066,7 +89066,7 @@ Transform:
   m_GameObject: {fileID: 9076430007004389942}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.3, y: -0.0000009536743, z: 20.87}
+  m_LocalPosition: {x: 13.3, y: 0.022, z: 20.87}
   m_LocalScale: {x: 1.45, y: 1.45, z: 1.45}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -89192,7 +89192,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.3
-  m_Height: 2.3
+  m_Height: 2.1
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!195 &9076430007004389944
@@ -89205,8 +89205,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.3
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 1.5
+  m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 2000
   m_StoppingDistance: 0
