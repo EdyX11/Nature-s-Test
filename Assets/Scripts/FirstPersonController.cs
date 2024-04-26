@@ -171,7 +171,13 @@ public class FirstPersonController : MonoBehaviour
     }*/
 
 
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("ZombieHand"))
+        {
+            PlayerState.Instance.TakeDamage(other.gameObject.GetComponent<ZombieHand>().damage);
+        }
+    }
 
     private void ApplyFinalMovements()
     {
