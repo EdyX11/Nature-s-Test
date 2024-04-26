@@ -9,6 +9,7 @@ TagManager:
   - QuickSlot
   - CinemachineTarget
   - Hunter
+  - Zombie
   layers:
   - Default
   - TransparentFX
