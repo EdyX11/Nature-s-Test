@@ -18,22 +18,22 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Survivor_body_diffuse
-    second: {fileID: 2800000, guid: d4e9532b28e807e469052cf4c5ae2b2a, type: 3}
+    second: {fileID: 2800000, guid: 1eac5f63df377454dae1dab824269f70, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Survivor_diffuse
-    second: {fileID: 2800000, guid: 1f92d5be209ab274986ce86023eb5a85, type: 3}
+    second: {fileID: 2800000, guid: de5313cf463820a46823463f7599811d, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Survivor_normal
-    second: {fileID: 2800000, guid: cae367f6985bec9419e10bbb983d838f, type: 3}
+    second: {fileID: 2800000, guid: 707f8b47aa1d1934094bf5c0b97b2276, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: Survivor_specular
-    second: {fileID: 2800000, guid: 3e7f0a752e687de44b92ffc03b165ea2, type: 3}
+    second: {fileID: 2800000, guid: e01469d222c479d429fe2ac07221860c, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -46,8 +46,7 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tFound
-      duplicate transform 'mixamorig:LeftEye' for human bone 'Jaw' and 'LeftEye'\n"
+    rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 

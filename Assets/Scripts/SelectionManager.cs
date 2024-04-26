@@ -77,6 +77,7 @@ public class SelectionManager : MonoBehaviour
             HandleInteractableObjectInteraction(hit);
             HandleInteractableNPCInteraction(hit);
             HandleAnimalInteraction(hit);
+            HandleEnemyNPCInteraction(hit);
         }
         else
         {
@@ -232,7 +233,65 @@ public class SelectionManager : MonoBehaviour
 
         animal.IsAlreadyBeingAttacked = false; // Unlock after operation.
     }
+    private void HandleEnemyNPCInteraction(RaycastHit hit)
+    {
+        EnemyNPC enemy = hit.transform.GetComponent<EnemyNPC>();
+        if (enemy != null && enemy.playerInRange)
+        {
+            if (enemy.isDead)
+            {
+                interaction_text.text = "Loot";
 
+                interaction_Info_UI.SetActive(true);
+
+                centerDotImage.gameObject.SetActive(false);
+                handIcon.gameObject.SetActive(true);
+
+                handIsVisible = true;
+
+
+                if (Input.GetMouseButtonDown(0))
+                {
+
+                    Lootable lootable = enemy.GetComponent<Lootable>();
+                    Loot(lootable); // method pass var
+                }
+
+            }
+
+            else
+            {
+                interaction_text.text = enemy.enemyName;
+                interaction_Info_UI.SetActive(true);
+
+                centerDotImage.gameObject.SetActive(true);
+                handIcon.gameObject.SetActive(false);
+
+                handIsVisible = false;
+
+            }
+            if (Input.GetMouseButtonDown(0) && EquipSystem.Instance.IsHoldingWeapon())
+            {
+                if (!enemy.IsAlreadyBeingAttacked)  //state from Animal script
+                {
+                    StartCoroutine(DealDamageToEnemy(enemy, 0.3f, EquipSystem.Instance.GetWeaponDamage()));
+                }
+            }
+        }
+        IEnumerator DealDamageToEnemy(EnemyNPC enemy, float delay, int damage)
+        {
+            enemy.IsAlreadyBeingAttacked = true; // Lock to prevent re-entrancy.
+            yield return new WaitForSeconds(delay);
+
+            if (enemy != null && enemy.playerInRange && !enemy.isDead)
+            {
+                enemy.TakeDamage(damage);
+            }
+
+            enemy.IsAlreadyBeingAttacked = false; // Unlock after operation.
+        }
+
+    }
     private void Loot(Lootable lootable) 
     {
         if (lootable.wasLootCalculated == false)

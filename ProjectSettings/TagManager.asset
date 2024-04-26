@@ -8,6 +8,7 @@ TagManager:
   - pickable
   - QuickSlot
   - CinemachineTarget
+  - Hunter
   layers:
   - Default
   - TransparentFX
