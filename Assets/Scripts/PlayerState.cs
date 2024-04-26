@@ -153,7 +153,16 @@ public class PlayerState : MonoBehaviour
         currentHealth -= dmg;
         OnDamage?.Invoke(currentHealth);// short way to if OnDamage == null or not do something
         if (currentHealth <= 0)
+        {
             KillPlayer();
+
+        }
+        else
+        {
+
+            print("player hit");
+        }
+            
        
     }
 
@@ -164,7 +173,8 @@ public class PlayerState : MonoBehaviour
         //go to main menu 
 
     }
+   
 
- 
+
 
 }

@@ -20,11 +20,7 @@ public class EnemyNPC : MonoBehaviour
     
 
     
-    [Header("Sounds")]
-    [SerializeField] AudioSource soundChannel;
-    [SerializeField] AudioClip enemyHit;
-    [SerializeField] AudioClip enemyDie;
-   
+ 
 
   
 
