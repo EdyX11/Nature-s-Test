@@ -17,7 +17,7 @@ public class PlayerState : MonoBehaviour
     public Action<float> OnTakeDamage;
     public Action<float> OnDamage;
     public Action<float> OnHeal;
-
+    [SerializeField] public bool isDead;
 
     [Header("---- PLAYER CALORIES ----")]
 
@@ -162,7 +162,7 @@ public class PlayerState : MonoBehaviour
         }
         else
         {
-
+            isDead = false;
             print("player hit");
         }
             
@@ -171,6 +171,7 @@ public class PlayerState : MonoBehaviour
    
     private void KillPlayer()
     {
+        isDead = true;
         currentHealth = 0;
         print("player dead");
         //go to main menu 

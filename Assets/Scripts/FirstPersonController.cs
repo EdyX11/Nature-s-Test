@@ -55,11 +55,10 @@ public class FirstPersonController : MonoBehaviour
     //[SerializeField] private AudioClip[] gravelClips = default;
     //  private float footstepTimer = 0;
 
-    [Header("Status parameters")]
-    public float caloriesSpentSprinting = 5;
     private float calorieLossCooldown = 0.5f;  // Cooldown in seconds
     private float currentCooldown = 0;
-    private bool isDead = false; // To track if the player has already been handled for death
+    public float caloriesSpentSprinting = 5;
+
 
     [Header("Animator")]
     public Animator _animator;
@@ -88,27 +87,26 @@ public class FirstPersonController : MonoBehaviour
 
     void Update()
     {
+        // Update onGround status every frame
         onGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        // Debug.Log($"On Ground: {onGround}"); // Uncomment when needed for debugging
-
-        if (!isDead) // Ensures no updates run if the player is dead
+        Debug.Log($"On Ground: {onGround}");
+        HandleStamina();
+        if (CanMove)
         {
-            HandleStamina();
-            HandleHealth();
-
-            if (CanMove)
+            HandleMovementInput();
+            HandleMouseLook();
+            if (canJump)
             {
-                HandleMovementInput();
-                HandleMouseLook();
-                if (canJump && onGround) // Ensure player can only jump if on the ground
-                {
-                    HandleJump();
-                }
-                ApplyFinalMovements();
+                HandleJump();
             }
-        }
-    }
+            ApplyFinalMovements();
 
+        }
+
+
+
+       
+    }
 
 
 
@@ -188,7 +186,6 @@ public class FirstPersonController : MonoBehaviour
                     PlayerState.Instance.currentCalories = 0;
                     PlayerState.Instance.currentHealth -= 10;
                 }
-                
             }
             else
             {
@@ -203,17 +200,6 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
-    
-
-    private void HandleHealth()
-    {
-        if (PlayerState.Instance.currentHealth <= 0 && !isDead)
-        {
-            _animator.SetTrigger("Dead");
-            isDead = true; // Prevents further death handling
-                           // Optionally disable player controls or other updates here
-        }
-    }
 
 
     private void OnTriggerEnter(Collider other)
