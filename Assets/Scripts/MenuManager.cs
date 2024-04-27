@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
+
     public static MenuManager Instance { get; set; }
+
+    [Header("UI")]
     public GameObject menuCanvas;
     public GameObject uiCanvas;
     public GameObject settingsMenu;
     public GameObject menu;
-
+    public GameObject gameOverUI;
 
     public bool isMenuOpen;
 

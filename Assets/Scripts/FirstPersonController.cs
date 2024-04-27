@@ -54,10 +54,12 @@ public class FirstPersonController : MonoBehaviour
     // [SerializeField] private AudioClip[] grassClips = default;
     //[SerializeField] private AudioClip[] gravelClips = default;
     //  private float footstepTimer = 0;
-
+    [Header("Status Parameters")]
     private float calorieLossCooldown = 0.5f;  // Cooldown in seconds
     private float currentCooldown = 0;
     public float caloriesSpentSprinting = 5;
+    
+
 
 
     [Header("Animator")]
@@ -85,29 +87,30 @@ public class FirstPersonController : MonoBehaviour
     }
 
 
+    
+
     void Update()
     {
-        // Update onGround status every frame
         onGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        Debug.Log($"On Ground: {onGround}");
-        HandleStamina();
-        if (CanMove)
+        Debug.Log($"On Ground: {onGround}"); // Uncomment when needed for debugging
+
+        if (!PlayerState.Instance.isDead) // Ensures no updates run if the player is dead
         {
-            HandleMovementInput();
-            HandleMouseLook();
-            if (canJump)
+            HandleStamina();
+            HandleHealth();
+
+            if (CanMove)
             {
-                HandleJump();
+                HandleMovementInput();
+                HandleMouseLook();
+                if (canJump && onGround) // Ensure player can only jump if on the ground
+                {
+                    HandleJump();
+                }
+                ApplyFinalMovements();
             }
-            ApplyFinalMovements();
-
         }
-
-
-
-       
     }
-
 
 
 
@@ -199,6 +202,26 @@ public class FirstPersonController : MonoBehaviour
             currentCooldown = 0;  // Reset cooldown when not sprinting
         }
     }
+   
+
+    private void HandleHealth()
+    {
+        if (PlayerState.Instance.currentHealth <= 0 )
+        {
+            print("player dead fps ");
+            PlayerState.Instance.isDead = true; // Prevents further death handling
+                                                // Optionally disable player controls or other updates here
+
+            //GetComponent<ScreenFader>().StartFade();
+
+           // StartCoroutine(ShowGameOverUI());
+        }
+        else
+        {
+
+            print("2");
+        }
+    }
 
 
 
@@ -206,8 +229,13 @@ public class FirstPersonController : MonoBehaviour
     {
         if (other.CompareTag("ZombieHand"))
         {
-            PlayerState.Instance.TakeDamage(other.gameObject.GetComponent<ZombieHand>().damage);
+            if (PlayerState.Instance.isDead == false)
+            {
+
+                PlayerState.Instance.TakeDamage(other.gameObject.GetComponent<ZombieHand>().damage);
+            }
         }
+           
     }
 
     private void ApplyFinalMovements()

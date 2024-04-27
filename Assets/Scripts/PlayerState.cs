@@ -162,7 +162,7 @@ public class PlayerState : MonoBehaviour
         }
         else
         {
-            isDead = false;
+          
             print("player hit");
         }
             
@@ -171,9 +171,9 @@ public class PlayerState : MonoBehaviour
    
     private void KillPlayer()
     {
-        isDead = true;
+       
         currentHealth = 0;
-        print("player dead");
+        print("player dead player state");
         //go to main menu 
         // game over
         //dying animation
