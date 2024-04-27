@@ -8,8 +8,9 @@ public class PlayerState : MonoBehaviour
 
 
     public static PlayerState Instance { get;  set; }
-
     
+
+
     [Header("---- PLAYER HEALTH ---- ")]
     [SerializeField] public float currentHealth;
     [SerializeField] public float maxHealth;
@@ -27,12 +28,13 @@ public class PlayerState : MonoBehaviour
     Vector3 lastPosition;
 
     public GameObject playerBody;
+   
 
-  
     [Header("---- PLAYER HYDRATION ----")]
 
     [SerializeField] public float currentHydrationPercent;
     [SerializeField] public float maxHydrationPercent;
+   // [SerializeField] public GameObject bloodyScreen;
 
     //public bool isHydrationActive;
 
@@ -150,6 +152,7 @@ public class PlayerState : MonoBehaviour
     {
 
         print("taking damage");
+      // StartCoroutine(BloodyScreenEffect());
         currentHealth -= dmg;
         OnDamage?.Invoke(currentHealth);// short way to if OnDamage == null or not do something
         if (currentHealth <= 0)
@@ -165,7 +168,7 @@ public class PlayerState : MonoBehaviour
             
        
     }
-
+   
     private void KillPlayer()
     {
         currentHealth = 0;

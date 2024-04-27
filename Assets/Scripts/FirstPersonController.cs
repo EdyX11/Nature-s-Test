@@ -49,11 +49,17 @@ public class FirstPersonController : MonoBehaviour
 
     [Header("Footstep Parameters")]
     //[SerializeField] private float baseStepSpeed = 0.5f;
-   // [SerializeField] private float sprintStepMultiplier = 0.6f;
+    // [SerializeField] private float sprintStepMultiplier = 0.6f;
     //[SerializeField] private AudioSource footStepAudioSource = default;
-   // [SerializeField] private AudioClip[] grassClips = default;
+    // [SerializeField] private AudioClip[] grassClips = default;
     //[SerializeField] private AudioClip[] gravelClips = default;
-  //  private float footstepTimer = 0;
+    //  private float footstepTimer = 0;
+
+    [Header("Status parameters")]
+    public float caloriesSpentSprinting = 5;
+    private float calorieLossCooldown = 0.5f;  // Cooldown in seconds
+    private float currentCooldown = 0;
+    private bool isDead = false; // To track if the player has already been handled for death
 
     [Header("Animator")]
     public Animator _animator;
@@ -82,26 +88,27 @@ public class FirstPersonController : MonoBehaviour
 
     void Update()
     {
-        // Update onGround status every frame
         onGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        Debug.Log($"On Ground: {onGround}");
-        //HandleStamina();
-        if (CanMove)
+        // Debug.Log($"On Ground: {onGround}"); // Uncomment when needed for debugging
+
+        if (!isDead) // Ensures no updates run if the player is dead
         {
-            HandleMovementInput();
-            HandleMouseLook();
-            if (canJump)
+            HandleStamina();
+            HandleHealth();
+
+            if (CanMove)
             {
-                HandleJump();
+                HandleMovementInput();
+                HandleMouseLook();
+                if (canJump && onGround) // Ensure player can only jump if on the ground
+                {
+                    HandleJump();
+                }
+                ApplyFinalMovements();
             }
-            ApplyFinalMovements();
-
         }
-
-
-
-       
     }
+
 
 
 
@@ -156,21 +163,57 @@ public class FirstPersonController : MonoBehaviour
             _animator.SetBool("Jump", false); // Indicate jumping end
         }
     }
-    /*private void HandleStamina()
+    
+
+    private void HandleStamina()
     {
-        if(IsSprinting && currentInput != Vector2.zero)
+        // Check if the player is sprinting and moving
+        if (IsSprinting && currentInput != Vector2.zero)
         {
-            PlayerState.Instance.currentCalories -= 1 * Time.deltaTime;
-            if (PlayerState.Instance.currentCalories < 0)
-                PlayerState.Instance.currentCalories = 0;
-            if (PlayerState.Instance.currentCalories <= 500) ;
-         
-            canSprint = false;
+            // Update the cooldown timer
+            if (currentCooldown <= 0)
+            {
+                // Deduct calories spent sprinting and reset cooldown
+                PlayerState.Instance.currentCalories -= 5;  // Deduct 5 calories
+                currentCooldown = calorieLossCooldown;
+
+                // Check if calories have fallen below a threshold
+                if (PlayerState.Instance.currentCalories <= 500)
+                {
+                    canSprint = false;
+                }
+                // Ensure calorie count doesn't fall below zero and adjust health
+                if (PlayerState.Instance.currentCalories < 0)
+                {
+                    PlayerState.Instance.currentCalories = 0;
+                    PlayerState.Instance.currentHealth -= 10;
+                }
+                
+            }
+            else
+            {
+                // Decrease cooldown
+                currentCooldown -= Time.deltaTime;  // Make sure to update this every frame
+            }
         }
-        canSprint = true;
+        else
+        {
+            canSprint = true;  // Allow sprinting when not currently sprinting or if movement stops
+            currentCooldown = 0;  // Reset cooldown when not sprinting
+        }
+    }
 
+    
 
-    }*/
+    private void HandleHealth()
+    {
+        if (PlayerState.Instance.currentHealth <= 0 && !isDead)
+        {
+            _animator.SetTrigger("Dead");
+            isDead = true; // Prevents further death handling
+                           // Optionally disable player controls or other updates here
+        }
+    }
 
 
     private void OnTriggerEnter(Collider other)
