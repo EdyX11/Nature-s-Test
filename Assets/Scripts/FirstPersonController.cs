@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class FirstPersonController : MonoBehaviour
 {
@@ -209,12 +211,9 @@ public class FirstPersonController : MonoBehaviour
         if (PlayerState.Instance.currentHealth <= 0 )
         {
             print("player dead fps ");
-            PlayerState.Instance.isDead = true; // Prevents further death handling
-                                                // Optionally disable player controls or other updates here
+            PlayerState.Instance.isDead = true;
 
-            //GetComponent<ScreenFader>().StartFade();
-
-           // StartCoroutine(ShowGameOverUI());
+           StartCoroutine(ShowGameOverUI());
         }
         else
         {
@@ -223,6 +222,23 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
+    private IEnumerator ShowGameOverUI()
+    {
+        yield return new WaitForSeconds(1f);
+        //GetComponent<ScreenFader>().StartFade();
+        MenuManager.Instance.gameOverUI.SetActive(true);
+
+        StartCoroutine(ReturnToMainMenu());
+    }
+
+
+    private IEnumerator ReturnToMainMenu()
+    {
+        yield return new WaitForSeconds(4f);
+
+        SceneManager.LoadScene("MainMenu");
+
+    }
 
 
     private void OnTriggerEnter(Collider other)
