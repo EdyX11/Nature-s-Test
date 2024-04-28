@@ -236,9 +236,10 @@ public class FirstPersonController : MonoBehaviour
     {
         yield return new WaitForSeconds(4f);
 
-        SceneManager.LoadScene("MainMenu");
+        MenuManager.Instance.OpenMenu();
 
     }
+  
 
 
     private void OnTriggerEnter(Collider other)

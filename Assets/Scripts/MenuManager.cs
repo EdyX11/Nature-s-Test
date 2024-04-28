@@ -28,16 +28,24 @@ public class MenuManager : MonoBehaviour
             Instance = this;
         }
     }
-
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (!isMenuOpen)
+            {
+                OpenMenu();
+            }
+            else
+            {
+                CloseMenu();
+            }
+        }
+    }
 
-        // SHOULD BE UPDATED TO ESCAPE FROM M
-        if (Input.GetKeyDown(KeyCode.M) && !isMenuOpen) { 
+    public void OpenMenu()
+    {
 
-
-       
-        
         uiCanvas.SetActive(false);
         menuCanvas.SetActive(true);
 
@@ -49,34 +57,29 @@ public class MenuManager : MonoBehaviour
         SelectionManager.Instance.DisableSelection();
         SelectionManager.Instance.GetComponent<SelectionManager>().enabled = false;
 
-        }
-        else if(Input.GetKeyDown(KeyCode.M) && isMenuOpen)
+    }
+
+
+    private void CloseMenu()
+    {
+
+       
+
+        uiCanvas.SetActive(true);
+        menuCanvas.SetActive(false);
+
+        isMenuOpen = false;
+
+
+        if (CraftingSystem.Instance.isOpen == false && InventorySystem.Instance.isOpen == false)
         {
 
-            settingsMenu.SetActive(false);
-            menu.SetActive(true);
 
-            uiCanvas.SetActive(true);
-            menuCanvas.SetActive(false);
-
-            isMenuOpen = false;
-
-
-            
-
-
-            if(CraftingSystem.Instance.isOpen == false && InventorySystem.Instance.isOpen == false ) {
-
-
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-
-            SelectionManager.Instance.EnableSelection();
-            SelectionManager.Instance.GetComponent<SelectionManager>().enabled = true;
-
-
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
-                                                        
+
+        SelectionManager.Instance.EnableSelection();
+        SelectionManager.Instance.GetComponent<SelectionManager>().enabled = true;
     }
 }
