@@ -239,21 +239,27 @@ public class FirstPersonController : MonoBehaviour
         MenuManager.Instance.OpenMenu();
 
     }
-  
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("ZombieHand"))
+        if (!PlayerState.Instance.isDead) // Check if the player is not dead at the start 
         {
-            if (PlayerState.Instance.isDead == false)
+            if (other.CompareTag("ZombieHand"))
             {
-
+                
                 PlayerState.Instance.TakeDamage(other.gameObject.GetComponent<ZombieHand>().damage);
+                // additional reactions specific to a zombie attack here, if necessary
+            }
+            else if (other.CompareTag("BearClaw"))
+            {
+                
+                PlayerState.Instance.TakeDamage(other.gameObject.GetComponent<BearClaw>().damage);
+                // Additional reactions specific to a bear attack can be added here
             }
         }
-           
     }
+
 
     private void ApplyFinalMovements()
     {

@@ -12,6 +12,9 @@ TagManager:
   - Zombie
   - Waypoints
   - ZombieHand
+  - WaypointsBear
+  - Bear
+  - BearClaw
   layers:
   - Default
   - TransparentFX

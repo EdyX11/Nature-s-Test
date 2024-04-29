@@ -78,6 +78,7 @@ public class SelectionManager : MonoBehaviour
             HandleInteractableNPCInteraction(hit);
             HandleAnimalInteraction(hit);
             HandleEnemyNPCInteraction(hit);
+            HandleBigBearEnemyNPCInteraction(hit);
         }
         else
         {
@@ -289,6 +290,65 @@ public class SelectionManager : MonoBehaviour
             }
 
             enemy.IsAlreadyBeingAttacked = false; // Unlock after operation.
+        }
+
+    }
+    private void HandleBigBearEnemyNPCInteraction(RaycastHit hit)
+    {
+        BigBearEnemy bigBear = hit.transform.GetComponent<BigBearEnemy>();
+        if (bigBear != null && bigBear.playerInRange)
+        {
+            if (bigBear.isDead)
+            {
+                interaction_text.text = "Loot";
+
+                interaction_Info_UI.SetActive(true);
+
+                centerDotImage.gameObject.SetActive(false);
+                handIcon.gameObject.SetActive(true);
+
+                handIsVisible = true;
+
+
+                if (Input.GetMouseButtonDown(0))
+                {
+
+                    Lootable lootable = bigBear.GetComponent<Lootable>();
+                    Loot(lootable); // method pass var
+                }
+
+            }
+
+            else
+            {
+                interaction_text.text = bigBear.enemyName;
+                interaction_Info_UI.SetActive(true);
+
+                centerDotImage.gameObject.SetActive(true);
+                handIcon.gameObject.SetActive(false);
+
+                handIsVisible = false;
+
+            }
+            if (Input.GetMouseButtonDown(0) && EquipSystem.Instance.IsHoldingWeapon())
+            {
+                if (!bigBear.IsAlreadyBeingAttacked)  //state from Animal script
+                {
+                    StartCoroutine(DealDamageToEnemyBigBear(bigBear, 0.3f, EquipSystem.Instance.GetWeaponDamage()));
+                }
+            }
+        }
+        IEnumerator DealDamageToEnemyBigBear(BigBearEnemy bigBear, float delay, int damage)
+        {
+            bigBear.IsAlreadyBeingAttacked = true; // Lock to prevent re-entrancy.
+            yield return new WaitForSeconds(delay);
+
+            if (bigBear != null && bigBear.playerInRange && !bigBear.isDead)
+            {
+                bigBear.TakeDamageBear(damage);
+            }
+
+            bigBear.IsAlreadyBeingAttacked = false; // Unlock after operation.
         }
 
     }
