@@ -12,17 +12,13 @@ public class EnemyNPC : MonoBehaviour
     private bool isHitRecovering = false;
     [SerializeField] private float hitCooldown = 2.0f;
 
-    
+
     [SerializeField] private int HP = 100;
     private Animator animator;
-   
+
     public bool isDead;
-    
 
-    
- 
-
-  
+   
 
 
 
@@ -32,8 +28,9 @@ public class EnemyNPC : MonoBehaviour
 
         animator = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
+        
     }
-    
+
     public void TakeDamage(int damageAmount)
     {
         Debug.Log($"{enemyName} took damage: {damageAmount}. Current Health: {HP}");
@@ -44,14 +41,14 @@ public class EnemyNPC : MonoBehaviour
             return; // Exit if already dead or recovering
         }
 
-        HP -=damageAmount;
+        HP -= damageAmount;
 
         if (HP <= 0)
         {
             if (!isDead)
             {
-                
-                Debug.Log("Zombie is dying now.");
+
+                Debug.Log("Enemy is dying now.");
                 int randomValue = Random.Range(0, 2); // 0 or 1
                 if (randomValue == 0)
                 {
@@ -78,7 +75,11 @@ public class EnemyNPC : MonoBehaviour
             isHitRecovering = true;
 
             StartCoroutine(ResetHitRecovery());
+            if (HP <=20)
+            {
+                animator.SetTrigger("FLEE");
 
+            }
         }
 
     }

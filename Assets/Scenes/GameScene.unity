@@ -1483,7 +1483,7 @@ Transform:
   m_GameObject: {fileID: 52049728}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.07, y: -1.46, z: -9}
+  m_LocalPosition: {x: -8.4, y: -0.96, z: 31.99}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -58822,7 +58822,7 @@ Transform:
   m_GameObject: {fileID: 1343805485}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.46, z: 12}
+  m_LocalPosition: {x: -5.55, y: -1.46, z: 23.77}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -74764,7 +74764,7 @@ Transform:
   m_GameObject: {fileID: 1768364196}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.47, y: -1.46, z: 12}
+  m_LocalPosition: {x: 4.73, y: -1.46, z: 24.36}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -75375,7 +75375,7 @@ Transform:
   m_GameObject: {fileID: 1780446917}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.54, y: -1.46, z: 31.92}
+  m_LocalPosition: {x: 3.9899998, y: -1.46, z: 31.92}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -89139,7 +89139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7091906381366972947, guid: 4014064f1349a80419fd695571f9fb27, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 22.65
+      value: 26.33
       objectReference: {fileID: 0}
     - target: {fileID: 7091906381366972947, guid: 4014064f1349a80419fd695571f9fb27, type: 3}
       propertyPath: m_LocalPosition.y
@@ -89147,7 +89147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7091906381366972947, guid: 4014064f1349a80419fd695571f9fb27, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 21.7
+      value: 13.32
       objectReference: {fileID: 0}
     - target: {fileID: 7091906381366972947, guid: 4014064f1349a80419fd695571f9fb27, type: 3}
       propertyPath: m_LocalRotation.w
@@ -93830,7 +93830,7 @@ Transform:
   m_GameObject: {fileID: 9076430007004389942}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.0336466, y: -0.87604904, z: 41.28005}
+  m_LocalPosition: {x: -9.52, y: -0.87604904, z: 36.76}
   m_LocalScale: {x: 1.45, y: 1.45, z: 1.45}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -94203,8 +94203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8556317762824255628}
   - component: {fileID: 2332312070239609590}
-  - component: {fileID: 9076430007004389946}
-  - component: {fileID: 9076430007004389945}
+  - component: {fileID: 9076430007004389949}
   - component: {fileID: 9076430007004389948}
   - component: {fileID: 9076430007004389944}
   - component: {fileID: 9076430007004389943}
@@ -94261,36 +94260,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &9076430007004389945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9076430007004389942}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84e3b2300dbc5d540a8a62df0a0551fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &9076430007004389946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9076430007004389942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7f653429fa51394cad633cf1bff97d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyName: Zombie
-  playerInRange: 0
-  IsAlreadyBeingAttacked: 0
-  hitCooldown: 2
-  HP: 100
-  isDead: 0
 --- !u!65 &9076430007004389947
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -94321,11 +94290,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 9076430007004389942}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e13d77a7c3a060408ef6c8e8ce2d268, type: 3}
+  m_Script: {fileID: 11500000, guid: e131b910d01c8fa43b5adbff51c298cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   zombieHand: {fileID: 1838833501}
   zombieDamage: 20
+--- !u!114 &9076430007004389949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9076430007004389942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a63bdc085607e049bec500e6856aa15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Zombie
+  playerInRange: 0
+  IsAlreadyBeingAttacked: 0
+  hitCooldown: 2
+  HP: 100
+  isDead: 0
 --- !u!4 &9084520378103332857
 Transform:
   m_ObjectHideFlags: 0
