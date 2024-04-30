@@ -21,7 +21,7 @@ public class CameraShake : MonoBehaviour
          [SerializeField] private bool isPlaying;
 
     public GameObject vulcanoActivate;
-    public GameObject vulcanoActivateFallRocks;
+    //public GameObject vulcanoActivateFallRocks;
     private void Start()
         {
             playerCamera = Camera.main; // Ensure the camera is assigned
@@ -67,7 +67,7 @@ public class CameraShake : MonoBehaviour
                     StartEarthQuake();
                     shakeCoroutine = StartCoroutine(ShakeCamera());
                     vulcanoActivate.SetActive(true);
-                    vulcanoActivateFallRocks.SetActive(true);
+                    //vulcanoActivateFallRocks.SetActive(true);
                 }
             }
             else
