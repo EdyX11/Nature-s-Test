@@ -10,7 +10,7 @@ public class Rock : MonoBehaviour
     private int bounceCount = 0;                   // Counter for the number of bounces
     [SerializeField] private int maxBounces;                        // Maximum number of bounces before deactivation, set randomly
     [SerializeField] private float timeout = 5.0f;                  // Timeout in seconds before forced deactivation
-
+    public AudioClip impactSound; // Optional: Add an impact sound
     void Start()
     {
         Init(_killAction);  // Initialize maxBounces and start the timeout countdown
@@ -28,6 +28,7 @@ public class Rock : MonoBehaviour
         if (other.gameObject.CompareTag("Player") && canDamage)
         {
             PlayerState.Instance.TakeDamage(rockDamage);
+            //impactSound.PlayOneShot();
         }
 
         if (other.gameObject.CompareTag("Ground"))

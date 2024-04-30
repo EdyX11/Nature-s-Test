@@ -16,7 +16,7 @@ public class VulcanoRock : MonoBehaviour
     [SerializeField] private bool _usePool;
     
 
-    public AudioClip impactSound; // Optional: Add an impact sound
+    
     private ObjectPool<Rock> _pool;
     private void Start()
     {
