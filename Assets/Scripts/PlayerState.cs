@@ -34,7 +34,7 @@ public class PlayerState : MonoBehaviour
 
     [SerializeField] public float currentHydrationPercent;
     [SerializeField] public float maxHydrationPercent;
-   // [SerializeField] public GameObject bloodyScreen;
+    // [SerializeField] public GameObject bloodyScreen;
 
     //public bool isHydrationActive;
 
@@ -59,21 +59,18 @@ public class PlayerState : MonoBehaviour
         currentCalories = maxCalories;
         currentHydrationPercent = maxHydrationPercent;
 
-        StartCoroutine(decreaseHydration());
+        StartCoroutine(DecreaseHydration());
 
 
     }
-    
-    IEnumerator decreaseHydration()
+
+    IEnumerator DecreaseHydration()
     {
-        while(true)
+        while (!isDead && currentHydrationPercent > 0)
         {
             currentHydrationPercent -= 1;
-            yield return new WaitForSeconds(10); // change hydration here
-
-
+            yield return new WaitForSeconds(10);
         }
-
     }
     void Update()
     {
@@ -138,32 +135,24 @@ public class PlayerState : MonoBehaviour
 
     private void LoseCalories()
     {
-
-        distanceTravelled += Vector3.Distance(playerBody.transform.position, lastPosition);
-        lastPosition = playerBody.transform.position; // last position is current position
-
-        if (distanceTravelled >= 5) // when travelling distance of value 5 lose 1 calorie
+        if (Vector3.Distance(playerBody.transform.position, lastPosition) >= 5)
         {
-            distanceTravelled = 0;
-            currentCalories -= 1; // change calorie loss here 
+            distanceTravelled += Vector3.Distance(playerBody.transform.position, lastPosition);
+            lastPosition = playerBody.transform.position;
+            currentCalories = Mathf.Max(0, currentCalories - 1);
         }
     }
     private void ApplyDamage(float dmg)
     {
 
-        print("taking damage");
-      // StartCoroutine(BloodyScreenEffect());
-        currentHealth -= dmg;
+        
+        // StartCoroutine(BloodyScreenEffect());
+        currentHealth = Mathf.Max(0, currentHealth - dmg);
         OnDamage?.Invoke(currentHealth);// short way to if OnDamage == null or not do something
         if (currentHealth <= 0)
         {
             KillPlayer();
 
-        }
-        else
-        {
-          
-            print("player hit");
         }
             
        

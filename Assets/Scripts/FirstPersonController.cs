@@ -215,11 +215,7 @@ public class FirstPersonController : MonoBehaviour
 
            StartCoroutine(ShowGameOverUI());
         }
-        else
-        {
-
-            print("2");
-        }
+        
     }
 
     private IEnumerator ShowGameOverUI()

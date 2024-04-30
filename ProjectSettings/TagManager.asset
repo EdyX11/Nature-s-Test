@@ -15,6 +15,7 @@ TagManager:
   - WaypointsBear
   - Bear
   - BearClaw
+  - Ground
   layers:
   - Default
   - TransparentFX
