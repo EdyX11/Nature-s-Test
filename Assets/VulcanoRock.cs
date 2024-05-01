@@ -51,7 +51,7 @@ public class VulcanoRock : MonoBehaviour
         {
 
             var rock = _usePool ?  _pool.Get() : Instantiate(_shapePrefab);
-            rock.transform.position = transform.position + Random.insideUnitSphere * 30; // spawn range
+            rock.transform.position = transform.position + Random.insideUnitSphere * 400; // spawn range
             rock.Init(KillShape);
         
         }
@@ -70,7 +70,7 @@ public class VulcanoRock : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.black;
-        Gizmos.DrawWireSphere(transform.position, 30f); // Visual aid for spawn range
+        Gizmos.DrawWireSphere(transform.position, 400f); // Visual aid for spawn range
     }
 
     // Coroutine to deactivate the GameObject after a specified delay
