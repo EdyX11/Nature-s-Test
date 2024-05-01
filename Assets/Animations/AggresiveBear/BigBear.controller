@@ -645,5 +645,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chaseSpeed: 5
-  stopChasingDistance: 25
+  stopChasingDistance: 23
   attackingDistance: 5
