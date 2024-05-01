@@ -9645,7 +9645,7 @@ Transform:
   m_GameObject: {fileID: 248152097}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 37.039978, y: 22.11, z: -35.50002}
+  m_LocalPosition: {x: 37.039978, y: 22.11, z: -35.500023}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9672,7 +9672,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 530bb4bbf64f6a8498aac9f9a1644e3e, type: 2}
+  - {fileID: 2100000, guid: 505fbbba9c5a99a4ba162ef4ee7c5736, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -37829,6 +37829,7 @@ GameObject:
   - component: {fileID: 962970385}
   - component: {fileID: 962970387}
   - component: {fileID: 962970386}
+  - component: {fileID: 962970388}
   m_Layer: 0
   m_Name: WeatherSystem
   m_TagString: Untagged
@@ -37959,16 +37960,118 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d0df455e2601394e90b178f7e687717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chanceToRainSpring: 0.6
+  chanceToRainSpring: 0.3
   chanceToRainSummer: 0.1
   chanceToRainAutumn: 0.4
   chanceToRainWinter: 0.7
+  chanceToErupt: 0.2
   rainEffect: {fileID: 2056536337}
   rainSkyBox: {fileID: 2100000, guid: 7a8675eb396637d43b4ba0a69cc715a5, type: 2}
+  volcanoRockSpawnerManager: {fileID: 1230194490}
+  volcanoEruptionSkyBox: {fileID: 2100000, guid: aed657681c6812845bb7736c343b5e9b, type: 2}
+  toActivateVolcanoRocks: {fileID: 1441432649}
   isSpecialWeather: 0
   rainChannel: {fileID: 962970386}
   rainSound: {fileID: 8300000, guid: f10e9483952c29942b40f217f916d4ba, type: 3}
+  volcanoChannel: {fileID: 962970388}
+  volcanoSound: {fileID: 8300000, guid: 76af5372005e75c478bb758f8ddf4034, type: 3}
   isPlaying: 0
+--- !u!82 &962970388
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962970384}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &963124036
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48128,7 +48231,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1124826780
 Transform:
   m_ObjectHideFlags: 0
@@ -48138,11 +48241,11 @@ Transform:
   m_GameObject: {fileID: 1124826779}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 38.14, y: 14.84, z: -35.1}
+  m_LocalPosition: {x: 38.140015, y: 14.839996, z: -35.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1401269123}
+  m_Father: {fileID: 1441432650}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!199 &1124826781
 ParticleSystemRenderer:
@@ -55972,7 +56075,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1230194491
 Transform:
   m_ObjectHideFlags: 0
@@ -55981,8 +56084,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1230194490}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -454.3, y: -83.37, z: 112.36}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -454.3, y: -83.37, z: 112.35999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56005,7 +56108,6 @@ MonoBehaviour:
   _defaultCap: 5
   _maxCap: 200
   _usePool: 1
-  impactSound: {fileID: 0}
 --- !u!1 &1236676592 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 8988c881874f4cb4db33f58b6a8e7416, type: 3}
@@ -59392,7 +59494,7 @@ GameObject:
   - component: {fileID: 1345735156}
   - component: {fileID: 1345735157}
   m_Layer: 0
-  m_Name: FollowPlayer[RAIN]
+  m_Name: FollowPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61302,7 +61404,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 248152098}
-  - {fileID: 1124826780}
   - {fileID: 1441432650}
   m_Father: {fileID: 1567546678}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -63089,6 +63190,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1124826780}
   - {fileID: 842013323}
   m_Father: {fileID: 1401269123}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -77433,7 +77535,6 @@ MonoBehaviour:
   earthquakeChannel: {fileID: 1812588898}
   earthquakeSound: {fileID: 8300000, guid: 5ae4d298ed547ba4c88587effb75d7e1, type: 3}
   isPlaying: 0
-  vulcanoActivate: {fileID: 1441432649}
 --- !u!65 &1812588895
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -92814,7 +92915,7 @@ Transform:
   m_GameObject: {fileID: 4870245767341244363}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 96.8, y: 0.9, z: 86.88}
+  m_LocalPosition: {x: 8.71, y: 0.03, z: 5.62}
   m_LocalScale: {x: 1.45, y: 1.45, z: 1.45}
   m_ConstrainProportionsScale: 0
   m_Children:

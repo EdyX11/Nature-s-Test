@@ -22,7 +22,7 @@ public class TimeManager : MonoBehaviour
 
     public Season currentSeason = Season.Spring;
 
-    private int daysPerSeason = 2;
+    private int daysPerSeason = 3;
     private int daysInCurrentSeason = 1;
 
 
