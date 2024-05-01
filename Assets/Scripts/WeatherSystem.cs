@@ -80,6 +80,7 @@ public class WeatherSystem : MonoBehaviour
         {
             currentWeather = WeatherCondition.VolcanicEruption;
             Invoke("StartVolcanicEruption", 1f);
+            Invoke("StopVolcanicEruption", 30f);
         }
         else
         {
