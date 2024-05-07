@@ -31,10 +31,10 @@ public class ZombieChaseState : StateMachineBehaviour
     {
 
 
-        if (SoundManager.Instance.zombieChannel.isPlaying == false)
+        if (EnemyNPC.Instance.zombieChannel.isPlaying == false)
         {
 
-            SoundManager.Instance.zombieChannel.PlayOneShot(SoundManager.Instance.zombieChase);
+            EnemyNPC.Instance.zombieChannel.PlayOneShot(EnemyNPC.Instance.zombieChase);
             
         }
 
@@ -65,6 +65,6 @@ public class ZombieChaseState : StateMachineBehaviour
     {
         agent.SetDestination(agent.transform.position);
 
-        SoundManager.Instance.zombieChannel.Stop();
+        EnemyNPC.Instance.zombieChannel.Stop();
     }
 }

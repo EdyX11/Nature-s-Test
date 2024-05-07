@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class BigBearEnemy : MonoBehaviour
 {
+    public static BigBearEnemy Instance { get; set; }
     private NavMeshAgent navAgent;
     public string enemyName;
     public bool playerInRange;
@@ -13,15 +14,34 @@ public class BigBearEnemy : MonoBehaviour
     [SerializeField] private float hitCooldown = 2.0f;
 
 
-    [SerializeField] private int HP = 100;
+    [SerializeField] public  int HP = 100;
     private Animator animator;
 
     public bool isDead;
 
+    [Header("Bear Sound")]
+
+    public AudioClip bearWalking;
+    public AudioClip bearChase;
+    public AudioClip bearAttack;
+    public AudioClip bearHurt;
+    public AudioClip bearDeath;
+    public AudioClip bearSleep;
+    public AudioSource bearChannel;
 
 
 
-
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     private void Start()
     {
@@ -55,7 +75,8 @@ public class BigBearEnemy : MonoBehaviour
                 isDead = true;
 
                 //dead sound
-                //SoundManager.Instance.zombieChannel.PlayOneShot(SoundManager.Instance.zombieDeath);
+                //bearChannel.PlayOneShot(bearDeath);
+                Debug.Log($"{enemyName} DIED , SOUND TO BE FOUND");
             }
         }
         else
@@ -63,16 +84,11 @@ public class BigBearEnemy : MonoBehaviour
 
             animator.SetTrigger("BearHit");
             //hurt sound
-           // SoundManager.Instance.zombieChannel2.PlayOneShot(SoundManager.Instance.zombieHurt);
+           
             isHitRecovering = true;
-
+            bearChannel.PlayOneShot(bearHurt);
             StartCoroutine(ResetHitRecovery());
-            if (HP <= 40)
-            {
-               
-                animator.SetTrigger("BearBuff");
-
-            }
+           
         }
 
     }

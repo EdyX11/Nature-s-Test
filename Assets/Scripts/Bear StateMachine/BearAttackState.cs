@@ -23,13 +23,13 @@ public class BearAttackState : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
 
-       /* if (SoundManager.Instance.zombieChannel.isPlaying == false)
+        
+        if (BigBearEnemy.Instance.bearChannel.isPlaying == false)
         {
 
-            SoundManager.Instance.zombieChannel.PlayOneShot(SoundManager.Instance.zombieAttack);
+            BigBearEnemy.Instance.bearChannel.PlayOneShot(BigBearEnemy.Instance.bearAttack);
 
         }
-       */
         LookAtPlayer();
 
         // check if agent should stop attacking
@@ -43,13 +43,24 @@ public class BearAttackState : StateMachineBehaviour
             animator.SetBool("isAttacking", false);
 
         }
+
+        // Stop attacking if health drops below threshold
+
+      /*  if (BigBearEnemy.Instance.HP != 0 && BigBearEnemy.Instance.HP < 40)
+        {
+            animator.SetBool("isAttacking", false);
+            animator.SetTrigger("BearBuff");
+            Debug.Log("Bear Buff Triggered");
+        }
+      */
+
     }
 
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
 
-      //  SoundManager.Instance.zombieChannel.Stop();
+        //  BigBearEnemy.Instance.bearChannel.Stop();
 
     }
 

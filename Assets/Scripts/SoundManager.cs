@@ -13,21 +13,15 @@ public class SoundManager : MonoBehaviour
     public AudioSource toolSwingSound;
     public AudioSource axeHitTreeSound;
     public AudioSource pickupItemSound;
+    public AudioSource BGM;
     //public AudioSource grassWalkSound;
 
     //Music
     //public AudioSource ... 
 
 
-    [Header("Zombie Sound")]
 
-    public AudioClip zombieWalking;
-    public AudioClip zombieChase;
-    public AudioClip zombieAttack;
-    public AudioClip zombieHurt;
-    public AudioClip zombieDeath;
-    public AudioSource zombieChannel;
-    public AudioSource zombieChannel2;
+
 
 
     private void Awake()

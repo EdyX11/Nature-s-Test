@@ -22,10 +22,10 @@ public class ZombieAttackState : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
 
-        if (SoundManager.Instance.zombieChannel.isPlaying == false)
+        if (EnemyNPC.Instance.zombieChannel.isPlaying == false)
         {
 
-            SoundManager.Instance.zombieChannel.PlayOneShot(SoundManager.Instance.zombieAttack);
+            EnemyNPC.Instance.zombieChannel.PlayOneShot(EnemyNPC.Instance.zombieAttack);
            
         }
         LookAtPlayer();
@@ -47,7 +47,7 @@ public class ZombieAttackState : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
 
-        SoundManager.Instance.zombieChannel.Stop();
+        EnemyNPC.Instance.zombieChannel.Stop();
 
     }
 

@@ -30,13 +30,14 @@ public class BearChaseState : StateMachineBehaviour
     {
 
 
-       /* if (SoundManager.Instance.zombieChannel.isPlaying == false)
-        {
+        /* if (BigBearEnemy.Instance.bearChannel.isPlaying == false)
+         {
 
-            SoundManager.Instance.zombieChannel.PlayOneShot(SoundManager.Instance.zombieChase);
+             BigBearEnemy.Instance.bearChannel.PlayOneShot(BigBearEnemy.Instance.zombieChase);
 
-        }
-       */
+         }
+        */
+        Debug.Log($"BEAR CHASING , SOUND TO BE FOUND");
         agent.SetDestination(player.position);
         animator.transform.LookAt(player);
 
@@ -64,6 +65,6 @@ public class BearChaseState : StateMachineBehaviour
     {
         agent.SetDestination(agent.transform.position);
 
-      //  SoundManager.Instance.zombieChannel.Stop();
+        //  BigBearEnemy.Instance.bearChannel.Stop();
     }
 }

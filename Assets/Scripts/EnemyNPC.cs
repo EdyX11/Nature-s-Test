@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyNPC : MonoBehaviour
 {
+    public static EnemyNPC Instance { get; set; }
     private NavMeshAgent navAgent;
     public string enemyName;
     public bool playerInRange;
@@ -18,11 +19,29 @@ public class EnemyNPC : MonoBehaviour
 
     public bool isDead;
 
-   
+
+    [Header("Zombie Sound")]
+
+    public AudioClip zombieWalking;
+    public AudioClip zombieChase;
+    public AudioClip zombieAttack;
+    public AudioClip zombieHurt;
+    public AudioClip zombieDeath;
+    public AudioSource zombieChannel;
+    public AudioSource zombieChannel2;
 
 
-
-
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     private void Start()
     {
 
@@ -63,7 +82,7 @@ public class EnemyNPC : MonoBehaviour
                 isDead = true;
 
                 //dead sound
-                SoundManager.Instance.zombieChannel.PlayOneShot(SoundManager.Instance.zombieDeath);
+                zombieChannel.PlayOneShot(zombieDeath);
             }
         }
         else
@@ -71,7 +90,7 @@ public class EnemyNPC : MonoBehaviour
 
             animator.SetTrigger("DAMAGE");
             //hurt sound
-            SoundManager.Instance.zombieChannel2.PlayOneShot(SoundManager.Instance.zombieHurt);
+            zombieChannel2.PlayOneShot(zombieHurt);
             isHitRecovering = true;
 
             StartCoroutine(ResetHitRecovery());
