@@ -92460,6 +92460,7 @@ GameObject:
   - component: {fileID: 5028041103338216651}
   - component: {fileID: 2131486222922624772}
   - component: {fileID: 1527331627075346824}
+  - component: {fileID: 5250429793799316850}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -92824,6 +92825,20 @@ Transform:
   - {fileID: 327941269609727461}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5250429793799316850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4870245767341244363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70bd3921c0b7e0741ba37f09a93420a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeImage: {fileID: 1285418974}
+  fadeDuration: 7
 --- !u!4 &5272882184928340511
 Transform:
   m_ObjectHideFlags: 0
