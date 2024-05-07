@@ -221,7 +221,7 @@ public class FirstPersonController : MonoBehaviour
     private IEnumerator ShowGameOverUI()
     {
         yield return new WaitForSeconds(1f);
-        //GetComponent<ScreenFader>().StartFade();
+        GetComponent<ScreenFader>().StartFade();
         MenuManager.Instance.gameOverUI.SetActive(true);
 
         StartCoroutine(ReturnToMainMenu());
