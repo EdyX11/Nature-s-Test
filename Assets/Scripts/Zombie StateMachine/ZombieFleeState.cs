@@ -12,7 +12,7 @@ public class ZombieFleeState : StateMachineBehaviour
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-     
+        Debug.Log($"zombie flee");
         agent = animator.GetComponent<NavMeshAgent>();
         zombieTransform = animator.transform;
 
