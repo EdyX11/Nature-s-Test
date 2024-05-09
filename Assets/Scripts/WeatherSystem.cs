@@ -21,18 +21,38 @@ public class WeatherSystem : MonoBehaviour
     [Header("Rain Effects")]
     [SerializeField] private GameObject rainEffect;
     [SerializeField] private Material rainSkyBox;
+
+
     [Header("Volcano Eruption effects")]
     [SerializeField] private GameObject volcanoRockSpawnerManager;
     [SerializeField] private Material volcanoEruptionSkyBox;
     [SerializeField] private GameObject toActivateVolcanoRocks;
 
+    [Header("Earthquake Parameters")]
+    [SerializeField] private float startingShakeAngle = 0.8f;
+    [SerializeField] private float decreasePercentage = 0.5f;
+    [SerializeField] private float shakeSpeed = 50;
+    [SerializeField] private int numberOfShakes = 10;
+
     public bool isSpecialWeather;
 
-    public AudioSource rainChannel;
-    public AudioClip rainSound;
-    public AudioSource volcanoChannel;
-    public AudioClip volcanoSound;
+    [Header("Player Parameters")]
+    [SerializeField] private Camera playerCamera;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource earthquakeChannel;
+    [SerializeField] private AudioClip earthquakeSound;
+    [SerializeField] private AudioSource rainChannel;
+    [SerializeField] private AudioClip rainSound;
+    [SerializeField] private AudioSource volcanoChannel;
+    [SerializeField] private AudioClip volcanoSound;
+
+
+    private Coroutine shakeCoroutine;
+    private WeatherCondition currentWeather = WeatherCondition.Sunny;
     public bool isPlaying;
+
+
     public enum WeatherCondition
     {
         Sunny,
@@ -40,10 +60,16 @@ public class WeatherSystem : MonoBehaviour
         VolcanicEruption
     }
 
-    private WeatherCondition currentWeather = WeatherCondition.Sunny;
+
 
     private void Start()
     {
+        playerCamera = Camera.main;
+        if (playerCamera == null)
+        {
+            Debug.LogError("No camera tagged as Main Camera found in the scene.");
+        }
+
         TimeManager.Instance.OnDayPass.AddListener(GenerateRandomWeather);
     }
 
@@ -89,7 +115,27 @@ public class WeatherSystem : MonoBehaviour
             StopVolcanicEruption();
         }
     }
+    private IEnumerator ShakeCamera()
+    {
+        Quaternion originalRot = playerCamera.transform.localRotation;
+        int shakeCount = numberOfShakes;
+        float shakeAngle = startingShakeAngle;
 
+        while (shakeCount > 0)
+        {
+            float timer = (Time.time * shakeSpeed) % (2 * Mathf.PI);
+            Quaternion shakeRot = Quaternion.Euler(0, 0, Mathf.Sin(timer) * shakeAngle);
+            playerCamera.transform.localRotation = originalRot * shakeRot;
+
+            if (timer > Mathf.PI * 2)
+            {
+                shakeAngle *= decreasePercentage;
+                shakeCount--;
+            }
+            yield return null;
+        }
+        playerCamera.transform.localRotation = originalRot;
+    }
 
     private void StartRain()
     {
@@ -99,6 +145,7 @@ public class WeatherSystem : MonoBehaviour
             rainChannel.loop = true;
             rainChannel.Play();
         }
+
         RenderSettings.skybox = rainSkyBox;
         rainEffect.SetActive(true);
     }
@@ -109,6 +156,7 @@ public class WeatherSystem : MonoBehaviour
         {
             rainChannel.Stop();
         }
+
         rainEffect.SetActive(false);
     }
 
@@ -120,9 +168,16 @@ public class WeatherSystem : MonoBehaviour
             volcanoChannel.loop = true;
             volcanoChannel.Play();
         }
+
         RenderSettings.skybox = volcanoEruptionSkyBox;
         volcanoRockSpawnerManager.SetActive(true);
-        toActivateVolcanoRocks.SetActive(true); 
+        toActivateVolcanoRocks.SetActive(true);
+
+        if (shakeCoroutine == null)
+        {
+            StartEarthquakeSound();
+            shakeCoroutine = StartCoroutine(ShakeCamera());
+        }
     }
 
     private void StopVolcanicEruption()
@@ -131,7 +186,33 @@ public class WeatherSystem : MonoBehaviour
         {
             volcanoChannel.Stop();
         }
+
         volcanoRockSpawnerManager.SetActive(false);
         toActivateVolcanoRocks.SetActive(false);
+
+        if (shakeCoroutine != null)
+        {
+            StopEarthquakeSound();
+            StopCoroutine(shakeCoroutine);
+            shakeCoroutine = null;
+        }
+    }
+    private void StartEarthquakeSound()
+    {
+        if (!earthquakeChannel.isPlaying)
+        {
+            earthquakeChannel.clip = earthquakeSound;
+            earthquakeChannel.loop = true;
+            earthquakeChannel.Play();
+        }
+    }
+
+    private void StopEarthquakeSound()
+    {
+        if (earthquakeChannel.isPlaying)
+        {
+            earthquakeChannel.Stop();
+        }
     }
 }
+
