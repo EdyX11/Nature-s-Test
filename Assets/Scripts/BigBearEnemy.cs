@@ -18,7 +18,7 @@ public class BigBearEnemy : MonoBehaviour
     private Animator animator;
 
     public bool isDead;
-
+    //private bool isAsleep = false;
     [Header("Bear Sound")]
 
     public AudioClip bearWalking;
@@ -29,7 +29,7 @@ public class BigBearEnemy : MonoBehaviour
     public AudioClip bearSleep;
     public AudioSource bearChannel;
 
-
+    public DayNightSystem dayNightSystem;
 
     private void Awake()
     {
@@ -42,14 +42,41 @@ public class BigBearEnemy : MonoBehaviour
             Instance = this;
         }
     }
-
+   
     private void Start()
     {
 
         animator = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
+        // Assuming that the DayNightSystem is also attached to an active GameObject
+        dayNightSystem = FindObjectOfType<DayNightSystem>();
 
     }
+    private void Update()
+    {
+        if (dayNightSystem != null)
+        {
+            int currentHour = dayNightSystem.currentHour;
+
+            // Make the bear sleep between 23:00 and 07:00
+            if ((currentHour >= 23 || currentHour < 7) && !animator.GetBool("isAsleep"))
+            {
+                animator.SetTrigger("BearSleep");
+                animator.SetBool("isAsleep", true);
+              //  bearChannel.PlayOneShot(bearSleep);
+                navAgent.isStopped = true; // Stop movement while sleeping
+            }
+            // Wake the bear up only between 07:00 and 23:00
+            else if (currentHour >= 7 && currentHour < 23 && animator.GetBool("isAsleep"))
+            {
+                animator.ResetTrigger("BearSleep");
+                animator.SetBool("isAsleep", false);
+                navAgent.isStopped = false; // Resume movement
+            }
+        }
+    }
+
+
 
     public void TakeDamageBear(int damageAmount)
     {
