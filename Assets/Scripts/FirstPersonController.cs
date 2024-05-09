@@ -121,22 +121,27 @@ public class FirstPersonController : MonoBehaviour
 
     private void HandleMovementInput()
     {
-
         float verticalAxis = Input.GetAxis("Vertical");
-        float horizontalAxis= Input.GetAxis("Horizontal");
+        float horizontalAxis = Input.GetAxis("Horizontal");
 
-        currentInput = new Vector2((IsSprinting ? sprintSpeed : walkSpeed) * verticalAxis , (IsSprinting ? sprintSpeed : walkSpeed) * horizontalAxis);
+        float movementSpeed = IsSprinting ? sprintSpeed : walkSpeed;
+        currentInput = new Vector2(movementSpeed * verticalAxis, movementSpeed * horizontalAxis);
         float moveDirectionY = moveDirection.y;
-        moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.x) + (transform.TransformDirection(Vector3.right) * currentInput.y);
-        
+
+        // Transform forward/backward movement
+        moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.x) +
+                        (transform.TransformDirection(Vector3.right) * currentInput.y);
+
         moveDirection.y = moveDirectionY;
-        // Update animator with the current movement values
-        _animator.SetFloat("Vertical", verticalAxis);
+
+        // Update animator parameters
+        _animator.SetFloat("Vertical", verticalAxis * (IsSprinting ? 1.5f : 1f));// blend tree value for sprint is 1.5
         _animator.SetFloat("Horizontal", horizontalAxis);
 
-        // Update the IsSprinting parameter in the animator based on the IsSprinting variable
-        //_animator.SetBool("IsSprinting", IsSprinting);
+        // Update the IsSprinting parameter (if applicable)
+        _animator.SetBool("IsSprinting", IsSprinting);
     }
+
 
     private void HandleMouseLook()
     {
