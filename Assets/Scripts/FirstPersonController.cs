@@ -66,6 +66,8 @@ public class FirstPersonController : MonoBehaviour
 
     [Header("Animator")]
     public Animator _animator;
+
+    public GameObject bloodyScreen;
   //  private Rigidbody rb;
 
     
@@ -215,7 +217,17 @@ public class FirstPersonController : MonoBehaviour
 
            StartCoroutine(ShowGameOverUI());
         }
-        
+        else if (PlayerState.Instance.currentHealth < 100)
+        {
+            print("player took damage");
+            bloodyScreen.SetActive(true);
+
+
+        }
+        else
+        {
+            bloodyScreen.SetActive(false);
+        }   
     }
 
     private IEnumerator ShowGameOverUI()
