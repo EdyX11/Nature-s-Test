@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using Unity.Netcode;
 
 public class FirstPersonController : MonoBehaviour
 {
@@ -95,6 +95,8 @@ public class FirstPersonController : MonoBehaviour
 
     void Update()
     {
+        //if (!IsOwner)
+           // return;
         onGround = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         Debug.Log($"On Ground: {onGround}"); // Uncomment when needed for debugging
 
