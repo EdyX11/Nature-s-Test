@@ -103,13 +103,17 @@ public class FirstPersonController : MonoBehaviour
             HandleStamina();
             HandleHealth();
 
-            if (CanMove && NPCDialog.Instance.isTalkingWithPlayer == false)
+            if (CanMove )
             {
                 HandleMovementInput();
-                HandleMouseLook();
-                if (canJump && onGround) // Ensure player can only jump if on the ground
+                if (NPCDialog.Instance.isTalkingWithPlayer == false)
                 {
-                    HandleJump();
+
+                    HandleMouseLook();
+                    if (canJump && onGround) // Ensure player can only jump if on the ground
+                    {
+                        HandleJump();
+                    }
                 }
                 ApplyFinalMovements();
             }
