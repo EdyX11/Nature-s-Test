@@ -7,48 +7,89 @@ using OpenAI;
 
 public class NPCDialog : MonoBehaviour
 {
+
+    public static NPCDialog Instance { get; set; }
+
     public bool playerInRange;
     public bool isTalkingWithPlayer;
+    [SerializeField] private AudioSource npcLaugh;
+
+
     [SerializeField] private GameObject toActivate;
 
 
     [SerializeField] private ChatGPT chatGPT; // Reference to the ChatGPT dialogue system
 
+    [SerializeField] private Animator npcAnimator;
+
+    private Coroutine laughCoroutine; // Coroutine variable to keep track
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        // Trigger chat possibility when the player enters the interaction range
         if (other.CompareTag("Player"))
         {
             isTalkingWithPlayer = true;
             playerInRange = true;
-            toActivate.SetActive(true); 
+            toActivate.SetActive(true);
 
-
-
-           // ShowInteractionHint(true); // Visual feedback for interaction availability
-
-            Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            SelectionManager.Instance.DisableSelection();
+            SelectionManager.Instance.GetComponent<SelectionManager>().enabled = false;
+            npcAnimator.SetBool("Talk",true);
+            laughCoroutine = StartCoroutine(LaughEveryTwentySeconds()); // Start laughing coroutine
         }
     }
-
     private void OnTriggerExit(Collider other)
     {
-        // Disable chat possibility when the player leaves the interaction range
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            isTalkingWithPlayer = false; // Ensure we reset the talking flag
+            isTalkingWithPlayer = false;
 
-
-
-            //ShowInteractionHint(false); // Hide interaction hint
             toActivate.SetActive(false);
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+
+            if (CraftingSystem.Instance.isOpen == false && InventorySystem.Instance.isOpen == false)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+
+            SelectionManager.Instance.EnableSelection();
+            SelectionManager.Instance.GetComponent<SelectionManager>().enabled = true;
             CloseChat(); // Optionally close the chat interface
+
+            if (laughCoroutine != null)
+            {
+                StopCoroutine(laughCoroutine); // Stop laughing coroutine
+                laughCoroutine = null;
+            }
+            npcAnimator.SetBool("Talk", false);
         }
     }
+
+    private IEnumerator LaughEveryTwentySeconds()
+    {
+        while (true)
+        {
+            npcLaugh.Play(); // Play the laugh sound
+            yield return new WaitForSeconds(20); // Wait for 20 seconds
+        }
+    }
+
 
     public void OpenChat()
     {
@@ -64,6 +105,7 @@ public class NPCDialog : MonoBehaviour
 
     private void CloseChat()
     {
+        //toActivate.SetActive(false);
         // Optionally implement chat closure logic
         Debug.Log("Chat Closed");
     }

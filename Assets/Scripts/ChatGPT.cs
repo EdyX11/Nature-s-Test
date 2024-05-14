@@ -17,7 +17,7 @@ namespace OpenAI
         private OpenAIApi openai = new OpenAIApi();
 
         private List<ChatMessage> messages = new List<ChatMessage>();
-        private string prompt = "Act as a radioactive mutant survivor on this island and reply to the questions.Explain to the player if asked about how dangerous the scavengers on this island are. Don't break character. Don't ever mention that you are an AI model.";
+        private string prompt = "Act as a lonely radioactive mutant survivor on this island and reply to the questions.Explain to the player if asked about how dangerous the creatures(zombies, radioactive bears) on this island are. Don't give elaborate answer. Don't be friendly.Don't break character. Don't ever mention that you are an AI model.";
        // public UnityEvent OnReplyReceived;
         private void Start()
         {

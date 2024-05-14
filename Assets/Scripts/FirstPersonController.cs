@@ -103,7 +103,7 @@ public class FirstPersonController : MonoBehaviour
             HandleStamina();
             HandleHealth();
 
-            if (CanMove)
+            if (CanMove && NPCDialog.Instance.isTalkingWithPlayer == false)
             {
                 HandleMovementInput();
                 HandleMouseLook();
