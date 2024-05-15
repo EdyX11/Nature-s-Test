@@ -48,13 +48,12 @@ public class AnimalMovement : MonoBehaviour
 
     void Update()
     {
-        // Assuming there's an `isDead` variable in this script or another component on the same GameObject
-        // For example, if the `isDead` property is part of an 'Animal' component:
+     //using bool isDead from Animal script to check if the animal is alive
         Animal animalScript = GetComponent<Animal>();
 
         if (animalScript != null && animalScript.isDead)
         {
-            // Optionally, ensure the walking animation is not playing
+            // walking animation is not playing
             animator.SetBool("WalkForward", false);
             return; // Exit the update loop if the animal is dead
         }

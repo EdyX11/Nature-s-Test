@@ -3,26 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using OpenAI;
+using UnityEngine.Events;
 
 
 public class NPCDialog : MonoBehaviour
 {
 
     public static NPCDialog Instance { get; set; }
-
+    [Header("Conditions")]
     public bool playerInRange;
     public bool isTalkingWithPlayer;
+
+    [Header("Components")]
     [SerializeField] private AudioSource npcLaugh;
-
-
     [SerializeField] private GameObject toActivate;
-
-
     [SerializeField] private ChatGPT chatGPT; // Reference to the ChatGPT dialogue system
-
     [SerializeField] private Animator npcAnimator;
 
-    private Coroutine laughCoroutine; // Coroutine variable to keep track
+    [Header("Events")]
+    public UnityEvent onPlayerEnter;
+    public UnityEvent onPlayerExit;
+
+    private Coroutine laughCoroutine; // Coroutine NPC sound
 
     private void Awake()
     {
@@ -36,48 +38,72 @@ public class NPCDialog : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        // Subscribe to events
+        onPlayerEnter.AddListener(HandlePlayerEnter);
+        onPlayerExit.AddListener(HandlePlayerExit);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            isTalkingWithPlayer = true;
             playerInRange = true;
-            toActivate.SetActive(true);
-
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-
-            SelectionManager.Instance.DisableSelection();
-            SelectionManager.Instance.GetComponent<SelectionManager>().enabled = false;
-            npcAnimator.SetBool("Talk",true);
-            laughCoroutine = StartCoroutine(LaughEveryTwentySeconds()); // Start laughing coroutine
+            isTalkingWithPlayer = true;
+            onPlayerEnter.Invoke();
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
             isTalkingWithPlayer = false;
+            onPlayerExit.Invoke();
+        }
+    }
+    private void HandlePlayerEnter()
+    {
+        Debug.Log("Chat Opened");
+        toActivate.SetActive(true);
+        npcAnimator.SetBool("Talk", true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SelectionManager.Instance.DisableSelection();
+        laughCoroutine = StartLaughing();
+        InventorySystem.Instance.canToggleInventory = false;
+        CraftingSystem.Instance.canToggleCrafting = false;
+    }
 
-            toActivate.SetActive(false);
+    private void HandlePlayerExit()
+    {
+        Debug.Log("Chat Closed");
+        toActivate.SetActive(false);
+        npcAnimator.SetBool("Talk", false);
+        if (!CraftingSystem.Instance.isOpen && !InventorySystem.Instance.isOpen)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        SelectionManager.Instance.EnableSelection();
+        StopLaughing();
+        InventorySystem.Instance.canToggleInventory = true;
+        CraftingSystem.Instance.canToggleCrafting = true;
+    }
 
-            if (CraftingSystem.Instance.isOpen == false && InventorySystem.Instance.isOpen == false)
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
+    private Coroutine StartLaughing()
+    {
+        return StartCoroutine(LaughEveryTwentySeconds());
+    }
 
-            SelectionManager.Instance.EnableSelection();
-            SelectionManager.Instance.GetComponent<SelectionManager>().enabled = true;
-            CloseChat(); // Optionally close the chat interface
-
-            if (laughCoroutine != null)
-            {
-                StopCoroutine(laughCoroutine); // Stop laughing coroutine
-                laughCoroutine = null;
-            }
-            npcAnimator.SetBool("Talk", false);
+    private void StopLaughing()
+    {
+        if (laughCoroutine != null)
+        {
+            StopCoroutine(laughCoroutine);
+            laughCoroutine = null;
         }
     }
 
@@ -85,29 +111,16 @@ public class NPCDialog : MonoBehaviour
     {
         while (true)
         {
-            npcLaugh.Play(); // Play the laugh sound
-            yield return new WaitForSeconds(20); // Wait for 20 seconds
+            npcLaugh.Play();
+            yield return new WaitForSeconds(20);
         }
     }
 
-
-    public void OpenChat()
+    private void OnDestroy()
     {
-        // Only open chat if the NPC is assigned and the player is in range
-        if (chatGPT != null && playerInRange && !isTalkingWithPlayer)
-        {
-            chatGPT.SendReply(); // Initiate sending a reply via ChatGPT
-            isTalkingWithPlayer = true;
-            Debug.Log("Chat Opened");
-        }
+        onPlayerEnter.RemoveListener(HandlePlayerEnter);
+        onPlayerExit.RemoveListener(HandlePlayerExit);
     }
 
-
-    private void CloseChat()
-    {
-        //toActivate.SetActive(false);
-        // Optionally implement chat closure logic
-        Debug.Log("Chat Closed");
-    }
 }
 

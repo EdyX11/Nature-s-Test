@@ -10,7 +10,7 @@ public class CraftingSystem : MonoBehaviour
     [Header("USER INTERFACE")]
     public GameObject craftingScreenUI;
     public GameObject toolsScreenUI,survivalScreenUI,refineScreenUI;
-
+    public bool canToggleCrafting= true;
     [Header("ITEM LIST")]
     public List<string> inventoryItemList = new List<string>();
     [SerializeField] public bool isOpen;
@@ -177,7 +177,7 @@ public class CraftingSystem : MonoBehaviour
        // RefreshNeededItems();
 
 
-        if (Input.GetKeyDown(KeyCode.C) && !isOpen)
+        if (Input.GetKeyDown(KeyCode.C) && !isOpen && canToggleCrafting)
         {
 
             Debug.Log("C is pressed");
@@ -293,7 +293,7 @@ public class CraftingSystem : MonoBehaviour
 
         }
 
-        // ----FOR THE PICK AXE ----
+        // ----FOR THE SWORD AXE ----
         IronSwordReq1.text = "3 Iron[" + iron_count + "]";
         IronSwordReq2.text = "3 Plank[" + plank_count + "]";
         if (iron_count >= 3 && plank_count >= 3 && InventorySystem.Instance.CheckSlotsAvailable(1))

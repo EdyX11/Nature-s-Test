@@ -48,7 +48,7 @@ public class BigBearEnemy : MonoBehaviour
 
         animator = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
-        // Assuming that the DayNightSystem is also attached to an active GameObject
+        //DayNightSystem is also attached to an active GameObject
         dayNightSystem = FindObjectOfType<DayNightSystem>();
 
     }

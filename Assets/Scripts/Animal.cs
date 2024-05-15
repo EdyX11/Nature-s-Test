@@ -64,6 +64,7 @@ public class Animal : MonoBehaviour
                 Debug.Log("Animator State: " + animator.GetCurrentAnimatorStateInfo(0).IsName("Death"));
 
                 GetComponent<AnimalMovement>().enabled = false;
+                // to make sure the kinematic body stops 
                 Rigidbody rb = GetComponent<Rigidbody>();
                 if (rb != null)
                 {
@@ -98,7 +99,7 @@ public class Animal : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         bloodPuddle.SetActive(true);
-        yield return new WaitForSeconds(20f);
+        yield return new WaitForSeconds(10f);
         bloodPuddle.SetActive(false);
 
     }
@@ -111,7 +112,7 @@ public class Animal : MonoBehaviour
                 soundChannel.PlayOneShot(rabbitDie);
                 break;
             case AnimalType.Bear:
-                soundChannel.PlayOneShot(bearDie);  // UPDATED to play bear die sound
+                soundChannel.PlayOneShot(bearDie);  
                 break;
             default:
                 break;
@@ -126,7 +127,7 @@ public class Animal : MonoBehaviour
                 soundChannel.PlayOneShot(rabbitHit);
                 break;
             case AnimalType.Bear:
-                soundChannel.PlayOneShot(bearHit);  // UPDATED to play bear hit sound
+                soundChannel.PlayOneShot(bearHit);  
                 break;
             default:
                 break;

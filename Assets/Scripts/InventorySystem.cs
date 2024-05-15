@@ -22,7 +22,7 @@ public class InventorySystem : MonoBehaviour
 
     private GameObject whatSlotToEquip;
 
-
+    public bool canToggleInventory = true;
     public bool isOpen;
 
     //public bool isFull;
@@ -73,7 +73,7 @@ public class InventorySystem : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I) && canToggleInventory)
         {
             ToggleInventory();
         }
